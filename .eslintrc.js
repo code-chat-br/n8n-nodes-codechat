@@ -1,54 +1,42 @@
 module.exports = {
-	root: true,
-
-	env: {
-		browser: true,
-		es6: true,
-		node: true,
-	},
-
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
-		project: ['./tsconfig.json'],
-		sourceType: 'module',
-		extraFileExtensions: ['.json'],
+		sourceType: 'CommonJS',
 	},
-	ignorePatterns: [
-		'.eslintrc.js',
-		'**/*.js',
-		'**/node_modules/**',
-		'**/dist/**',
+	plugins: ['@typescript-eslint/eslint-plugin'],
+	extends: [
+		'plugin:@typescript-eslint/recommended',
+		'plugin:prettier/recommended',
+		'plugin:prettier/recommended'
 	],
-
-	overrides: [
-		{
-			files: ['package.json'],
-			plugins: ['eslint-plugin-n8n-nodes-base'],
-			extends: ['plugin:n8n-nodes-base/community'],
-			rules: {
-				'n8n-nodes-base/community-package-json-name-still-default': 'off',
-			}
-		},
-		{
-			files: ['./credentials/**/*.ts'],
-			plugins: ['eslint-plugin-n8n-nodes-base'],
-			extends: ['plugin:n8n-nodes-base/credentials'],
-			rules: {
-				'n8n-nodes-base/cred-class-field-documentation-url-missing': 'off',
-				'n8n-nodes-base/cred-class-field-documentation-url-miscased': 'off',
+	globals: {
+		Atomics: 'readonly',
+		SharedArrayBuffer: 'readonly',
+	},
+	root: true,
+	env: {
+		node: true,
+		jest: true,
+	},
+	ignorePatterns: ['.eslintrc.js'],
+	rules: {
+		'@typescript-eslint/interface-name-prefix': 'off',
+		'@typescript-eslint/explicit-function-return-type': 'off',
+		'@typescript-eslint/explicit-module-boundary-types': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
+		'@typescript-eslint/no-empty-function': 'off',
+		'@typescript-eslint/no-non-null-assertion': 'off',
+		'@typescript-eslint/no-unused-vars': 'off',
+		'@typescript-eslint/ban-types': [
+			'error',
+			{
+				extendDefaults: true,
+				types: {
+					'{}': false,
+					Object: false,
+				},
 			},
-		},
-		{
-			files: ['./nodes/**/*.ts'],
-			plugins: ['eslint-plugin-n8n-nodes-base'],
-			extends: ['plugin:n8n-nodes-base/nodes'],
-			rules: {
-				'n8n-nodes-base/node-execute-block-missing-continue-on-fail': 'off',
-				'n8n-nodes-base/node-resource-description-filename-against-convention': 'off',
-				'n8n-nodes-base/node-param-fixed-collection-type-unsorted-items': 'off',
-				'n8n-nodes-base/node-execute-block-operation-missing-singular-pairing': 'off',
-				'n8n-nodes-base/node-execute-block-operation-missing-plural-pairing': 'off',
-			},
-		},
-	],
+		],
+		'prettier/prettier': ['error', { endOfLine: 'auto' }],
+	},
 };
