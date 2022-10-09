@@ -1,5 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
-import { sendTextMessage, shippingURL } from '../Generic.func';
+import { prepareShippingOptions, sendTextMessage, shippingURL } from '../Generic.func';
 
 export const optionsMessage: INodeProperties[] = [
 	{
@@ -51,7 +51,9 @@ export const optionsMessage: INodeProperties[] = [
 				operation: ['sendMessage'],
 			},
 		},
-		routing: { send: { type: 'body', property: 'options.delay' } },
+		routing: {
+			send: { type: 'body', property: 'options.delay', preSend: [prepareShippingOptions] },
+		},
 	},
 ];
 
@@ -67,13 +69,14 @@ export const textProperty: INodeProperties[] = [
 			show: {
 				resource: ['message'],
 				operation: ['sendMessage'],
-				messagetype: ['text'],
+				messageType: ['text'],
 			},
 		},
 		routing: {
 			send: { type: 'body', property: 'text', preSend: [sendTextMessage] },
 			request: {
 				url: '=' + shippingURL('message', 'sendText'),
+				method: 'POST',
 			},
 		},
 	},
@@ -85,12 +88,13 @@ export const buttonsProperty: INodeProperties[] = [
 		name: 'buttonTitleProperty',
 		required: true,
 		default: '',
+		hint: '',
 		type: 'string',
 		displayOptions: {
 			show: {
 				resource: ['message'],
 				operation: ['sendMessage'],
-				messagetype: ['buttons'],
+				messageType: ['buttons'],
 			},
 		},
 		routing: {
@@ -111,7 +115,7 @@ export const buttonsProperty: INodeProperties[] = [
 			show: {
 				resource: ['message'],
 				operation: ['sendMessage'],
-				messagetype: ['buttons'],
+				messageType: ['buttons'],
 			},
 		},
 		routing: {
@@ -122,14 +126,13 @@ export const buttonsProperty: INodeProperties[] = [
 	{
 		displayName: 'Button Footer Text',
 		name: 'buttonFooterProperty',
-		required: true,
 		default: '',
 		type: 'string',
 		displayOptions: {
 			show: {
 				resource: ['message'],
 				operation: ['sendMessage'],
-				messagetype: ['buttons'],
+				messageType: ['buttons'],
 			},
 		},
 		routing: {
@@ -153,43 +156,49 @@ export const buttonsProperty: INodeProperties[] = [
 			show: {
 				resource: ['message'],
 				operation: ['sendMessage'],
-				messagetype: ['buttons'],
+				messageType: ['buttons'],
 			},
 		},
 	},
 
 	{
-		displayName: 'Collection',
+		displayName: 'Collection Field',
 		name: 'collectionProperty',
 		required: true,
 		placeholder: 'Add Reply Buttons',
 		type: 'fixedCollection',
 		default: '',
-		typeOptions: { multipleValues: true, maxValue: 3, minValue: 1 },
+		typeOptions: { multipleValues: true, maxValue: 3, multipleValueButtonText: 'Click Here' },
 		description: '',
 		options: [
 			{
-				displayName: 'Display Text',
-				name: 'displayText',
-				type: 'string',
-				default: '',
-				description: 'Unique text per button',
-				required: true,
-			},
-			{
-				displayName: 'Button ID',
-				name: 'buttonId',
-				type: 'string',
-				default: '',
-				description: 'Unique ID per button',
-				required: true,
+				displayName: 'Reply Buttons',
+				name: 'replyButtons',
+				values: [
+					{
+						displayName: 'Display Text',
+						name: 'displayText',
+						type: 'string',
+						default: '',
+						description: 'Unique text per button',
+						required: true,
+					},
+					{
+						displayName: 'Button ID',
+						name: 'buttonId',
+						type: 'string',
+						default: '',
+						description: 'Unique ID per button',
+						required: true,
+					},
+				],
 			},
 		],
 		displayOptions: {
 			show: {
 				resource: ['message'],
 				operation: ['sendMessage'],
-				messagetype: ['buttons'],
+				messageType: ['buttons'],
 				buttonFieldTypeProperty: ['collection'],
 			},
 		},
@@ -197,7 +206,7 @@ export const buttonsProperty: INodeProperties[] = [
 	},
 
 	{
-		displayName: 'JSON',
+		displayName: 'JSON Field',
 		name: 'jsonProperty',
 		required: true,
 		placeholder: `[Array:[{displayText: 'Button Text', buttonId: 'btnId01'}]]`,
@@ -208,10 +217,57 @@ export const buttonsProperty: INodeProperties[] = [
 			show: {
 				resource: ['message'],
 				operation: ['sendMessage'],
-				messagetype: ['buttons'],
-				buttonFieldTypeProperty: ['collection'],
+				messageType: ['buttons'],
+				buttonFieldTypeProperty: ['json'],
 			},
 		},
 		routing: { send: { type: 'body', property: 'buttonsMessage.buttons' } },
+	},
+
+	{
+		displayName: 'Media Message',
+		name: 'mediaMessageProperty',
+		placeholder: 'Add Media Message',
+		type: 'fixedCollection',
+		default: '',
+		typeOptions: { multipleValues: false },
+		description: 'Embed media message to button',
+		options: [
+			{
+				displayName: 'Media Message',
+				name: 'embedMediaMessage',
+				values: [
+					{
+						displayName: 'Media Type',
+						name: 'mediaType',
+						required: true,
+						type: 'options',
+						options: [
+							{ name: 'Image', value: 'image' },
+							{ name: 'Document', value: 'document' },
+							{ name: 'Video', value: 'video' },
+							{ name: 'Sticker', value: 'sticker' },
+						],
+						default: 'image',
+					},
+					{
+						displayName: 'Media Source',
+						name: 'mediaSource',
+						required: true,
+						type: 'string',
+						default: '',
+						placeholder: 'url or base64',
+					},
+				],
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['message'],
+				operation: ['sendMessage'],
+				messageType: ['buttons'],
+			},
+		},
+		routing: { send: { type: 'body', property: 'mediaData' } },
 	},
 ];

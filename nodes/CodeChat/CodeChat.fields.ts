@@ -1,5 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
-import { optionsMessage, textProperty } from './descriptions/SendMessage.desc';
+import { buttonsProperty, optionsMessage, textProperty } from './descriptions/SendMessage.desc';
 import { formatNumber } from './Generic.func';
 
 const messageResource: INodeProperties[] = [
@@ -69,10 +69,16 @@ const messageResource: INodeProperties[] = [
 	},
 
 	/**┌──────────────────────────┐
-	 * │		   Type Message 			│
+	 * │		    Type Text 	  		│
 	 * └──────────────────────────┘
 	 */
 	...textProperty,
+
+	/**┌──────────────────────────┐
+	 * │		   Type Buttons 			│
+	 * └──────────────────────────┘
+	 */
+	...buttonsProperty,
 ];
 
 export const codechatFields: INodeProperties[] = [
