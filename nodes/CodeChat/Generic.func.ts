@@ -1,5 +1,34 @@
-import { IExecuteSingleFunctions, IHttpRequestOptions, NodeApiError } from 'n8n-workflow';
+import {
+	IExecuteSingleFunctions,
+	IHttpRequestOptions,
+	IN8nHttpFullResponse,
+	INodeExecutionData,
+	NodeApiError,
+} from 'n8n-workflow';
 import { ICodeChat } from './Codechat';
+
+export async function sendErrorPostReceive(
+	this: IExecuteSingleFunctions,
+	data: INodeExecutionData[],
+	response: IN8nHttpFullResponse,
+): Promise<INodeExecutionData[]> {
+	if ((response?.body as any)?.error) {
+		const body: any = response.body;
+		if (body.statusCode === 400) {
+			throw new NodeApiError(
+				this.getNode(),
+				{ error: body.error, message: body.message },
+				{
+					message: 'Check the type of properties and values entered',
+					description:
+						'Check that there are no undefined values; whether the type of values is as expected or whether mandatory properties have been entered.',
+					httpCode: body.statusCode.toString(),
+				},
+			);
+		}
+	}
+	return data;
+}
 
 function isNotempty(value: any) {
 	if (!value) return false;
@@ -10,12 +39,10 @@ function isNotempty(value: any) {
 function join(...paths: string[]) {
 	let url = '';
 	paths.forEach((path) => (url += `${path}/`));
-	console.log({ url });
 	return url;
 }
 
 export function shippingURL(...paths: string[]) {
-	console.log({ paths });
 	return join('{{$credentials.instanceName}}', ...paths, '{{$credentials.licenseKey}}');
 }
 
@@ -29,6 +56,23 @@ export async function formatNumber(
 
 	if (!requestOptions?.body) requestOptions.body = {};
 	Object.assign(requestOptions.body, { numbers: [...numbers] });
+
+	if (((requestOptions.body as any).numbers as string[]).length === 0) {
+		throw new NodeApiError(
+			this.getNode(),
+			{
+				message: [
+					'The listPhoneNumbers parameter must be an array',
+					'listPhoneNumbers must have at least one value',
+				],
+			},
+			{
+				message: 'Check the type of properties and values entered',
+				description: 'Bad Request',
+				httpCode: '400',
+			},
+		);
+	}
 
 	return requestOptions;
 }
@@ -62,15 +106,22 @@ export async function sendTextMessage(
 ): Promise<IHttpRequestOptions> {
 	const body = requestOptions.body as any;
 
-	if (!Array.isArray(body.numbers)) {
-		throw new NodeApiError(
-			this.getNode(),
-			{ error: 'The listPhoneNumbers parameter must be an array' },
-			{ message: 'Bad Request', httpCode: '400' },
-		);
-	}
-
 	Object.assign(requestOptions.body as {}, { textMessage: { text: (body.text as string).trim() } });
+
+	return requestOptions;
+}
+
+export async function sendButtonsMessage(
+	this: IExecuteSingleFunctions,
+	requestOptions: IHttpRequestOptions,
+): Promise<IHttpRequestOptions> {
+	const body = requestOptions.body as any;
+	console.log('REQUEST: ', requestOptions);
+	if (body?.mediaData) {
+		if (body.mediaData?.type && body.mediaData?.source) {
+			
+		}
+	}
 
 	return requestOptions;
 }

@@ -1,6 +1,6 @@
 import { INodeProperties } from 'n8n-workflow';
 import { buttonsProperty, optionsMessage, textProperty } from './descriptions/SendMessage.desc';
-import { formatNumber } from './Generic.func';
+import { formatNumber, sendErrorPostReceive } from './Generic.func';
 
 const messageResource: INodeProperties[] = [
 	{
@@ -15,6 +15,7 @@ const messageResource: INodeProperties[] = [
 		],
 		default: 'sendMessage',
 		displayOptions: { show: { resource: ['message'] } },
+		routing: { output: { postReceive: [sendErrorPostReceive] } },
 	},
 
 	{

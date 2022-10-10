@@ -1,5 +1,10 @@
 import { INodeProperties } from 'n8n-workflow';
-import { prepareShippingOptions, sendTextMessage, shippingURL } from '../Generic.func';
+import {
+	prepareShippingOptions,
+	sendButtonsMessage,
+	sendTextMessage,
+	shippingURL,
+} from '../Generic.func';
 
 export const optionsMessage: INodeProperties[] = [
 	{
@@ -99,9 +104,6 @@ export const buttonsProperty: INodeProperties[] = [
 		},
 		routing: {
 			send: { type: 'body', property: 'buttonsMessage.title' },
-			request: {
-				url: '=' + shippingURL('message', 'sendButtons'),
-			},
 		},
 	},
 
@@ -249,6 +251,7 @@ export const buttonsProperty: INodeProperties[] = [
 							{ name: 'Sticker', value: 'sticker' },
 						],
 						default: 'image',
+						routing: { send: { type: 'body', property: 'mediaData.type' } },
 					},
 					{
 						displayName: 'Media Source',
@@ -257,6 +260,7 @@ export const buttonsProperty: INodeProperties[] = [
 						type: 'string',
 						default: '',
 						placeholder: 'url or base64',
+						routing: { send: { type: 'body', property: 'mediaData.source' } },
 					},
 				],
 			},
@@ -268,6 +272,23 @@ export const buttonsProperty: INodeProperties[] = [
 				messageType: ['buttons'],
 			},
 		},
-		routing: { send: { type: 'body', property: 'mediaData' } },
+	},
+
+	{
+		displayName: 'Set Routing',
+		name: 'setRouting',
+		type: 'hidden',
+		default: '',
+		displayOptions: {
+			show: {
+				resource: ['message'],
+				operation: ['sendMessage'],
+				messageType: ['buttons'],
+			},
+		},
+		routing: {
+			request: { url: '=' + shippingURL('message', 'sendButtons') },
+			send: { preSend: [sendButtonsMessage] },
+		},
 	},
 ];

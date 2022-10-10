@@ -2,8 +2,7 @@
 	"node": "n8n-nodes-base.codechat",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
-	"categories": ["Communication","Development"
-	],
+	"categories": ["Communication","Development"],
 	"resources": {
 		"credentialDocumentation": [
 			{
