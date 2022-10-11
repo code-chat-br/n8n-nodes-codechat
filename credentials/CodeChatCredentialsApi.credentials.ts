@@ -33,15 +33,4 @@ export class CodeChatCredentialsApi implements ICredentialType {
 		},
 	];
 	documentationUrl = 'CodeChat';
-	authenticate: IAuthenticateGeneric = {
-		type: 'generic',
-		properties: {
-			qs: {
-				instanceName: '={{$credentials.instanceName}}',
-				licenseKey: '={{$credentials.licenseKey}}',
-				baseUrl: '={{$credentials.baseUrl',
-			},
-		},
-	};
-	genericAuth = true;
 }

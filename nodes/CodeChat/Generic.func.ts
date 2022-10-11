@@ -5,7 +5,6 @@ import {
 	INodeExecutionData,
 	NodeApiError,
 } from 'n8n-workflow';
-import { ICodeChat } from './Codechat';
 
 export async function sendErrorPostReceive(
 	this: IExecuteSingleFunctions,
@@ -14,7 +13,7 @@ export async function sendErrorPostReceive(
 ): Promise<INodeExecutionData[]> {
 	if ((response?.body as any)?.error) {
 		const body: any = response.body;
-		if (body.statusCode === 400) {
+		if (body?.error) {
 			throw new NodeApiError(
 				this.getNode(),
 				{ error: body.error, message: body.message },
@@ -116,12 +115,54 @@ export async function sendButtonsMessage(
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
 	const body = requestOptions.body as any;
-	console.log('REQUEST: ', requestOptions);
+
 	if (body?.mediaData) {
 		if (body.mediaData?.type && body.mediaData?.source) {
-			
+			body.buttonsMessage.mediaMessage = {
+				mediaType: body.mediaData?.type,
+				url: body.mediaData?.source,
+			};
 		}
 	}
+
+	const buttonFieldTypeProperty = this.getNodeParameter('buttonFieldTypeProperty');
+	if (buttonFieldTypeProperty === 'collection') {
+		body.buttonsMessage.buttons = body.buttons.replyButtons;
+	}
+
+	delete body.buttons;
+	delete body.mediaData;
+
+	Object.assign(requestOptions.body as {}, { ...body });
+
+	return requestOptions;
+}
+
+export async function sendTemplateMessage(
+	this: IExecuteSingleFunctions,
+	requestOptions: IHttpRequestOptions,
+): Promise<IHttpRequestOptions> {
+	console.log('REQUEST: ', requestOptions);
+	const body = requestOptions.body as any;
+
+	if (body?.mediaData) {
+		if (body.mediaData?.type && body.mediaData?.source) {
+			body.templateMessage.mediaMessage = {
+				mediaType: body.mediaData?.type,
+				url: body.mediaData?.source,
+			};
+		}
+	}
+
+	const templateFieldTypeProperty = this.getNodeParameter('templateFieldTypeProperty');
+	if (templateFieldTypeProperty === 'collection') {
+		body.templateMessage.buttons = body.buttons.templateButtons;
+	}
+
+	delete body.buttons;
+	delete body.mediaData;
+
+	Object.assign(requestOptions.body as {}, { ...body });
 
 	return requestOptions;
 }

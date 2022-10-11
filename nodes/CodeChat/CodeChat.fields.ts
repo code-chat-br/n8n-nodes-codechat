@@ -1,5 +1,10 @@
 import { INodeProperties } from 'n8n-workflow';
-import { buttonsProperty, optionsMessage, textProperty } from './descriptions/SendMessage.desc';
+import {
+	buttonsProperties,
+	optionsProperties,
+	templateProperties,
+	textProperties,
+} from './descriptions/SendMessage.desc';
 import { formatNumber, sendErrorPostReceive } from './Generic.func';
 
 const messageResource: INodeProperties[] = [
@@ -35,11 +40,11 @@ const messageResource: INodeProperties[] = [
 		},
 	},
 
-	/**┌──────────────────────────┐
-	 * │		 Options Message			│
-	 * └──────────────────────────┘
+	/**┌──────────────────────────────┐
+	 * │      Options Properties      │
+	 * └──────────────────────────────┘
 	 */
-	...optionsMessage,
+	...optionsProperties,
 
 	{
 		displayName: 'Message Type',
@@ -69,17 +74,23 @@ const messageResource: INodeProperties[] = [
 		},
 	},
 
-	/**┌──────────────────────────┐
-	 * │		    Type Text 	  		│
-	 * └──────────────────────────┘
+	/**┌───────────────────────────┐
+	 * │      Text Properties      │
+	 * └───────────────────────────┘
 	 */
-	...textProperty,
+	...textProperties,
 
-	/**┌──────────────────────────┐
-	 * │		   Type Buttons 			│
-	 * └──────────────────────────┘
+	/**┌──────────────────────────────┐
+	 * │      Buttons Properties      │
+	 * └──────────────────────────────┘
 	 */
-	...buttonsProperty,
+	...buttonsProperties,
+
+	/**┌───────────────────────────────┐
+	 * │      Template Properties      │
+	 * └───────────────────────────────┘
+	 */
+	...templateProperties,
 ];
 
 export const codechatFields: INodeProperties[] = [
