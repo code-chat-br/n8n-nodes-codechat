@@ -673,7 +673,7 @@ export const whatsAppAudioProperties: INodeProperties[] = [
 		type: 'string',
 		routing: {
 			send: { type: 'body', property: 'whatsappAudio.audio' },
-			request: { url: '=' + shippingURL('message', 'sendWhatsAppAudio') },
+			request: { url: '=' + shippingURL('message', 'sendWhatsAppAudio'), method: 'POST' },
 		},
 		displayOptions: {
 			show: {
