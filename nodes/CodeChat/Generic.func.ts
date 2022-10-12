@@ -49,29 +49,64 @@ export async function formatNumber(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const numbers = (this.getNodeParameter('listPhoneNumbers') as string[]).map((number) =>
-		number.replace(/[\-\(\)\ ]+/gm, ''),
-	);
+	const body = requestOptions.body as any;
 
-	if (!requestOptions?.body) requestOptions.body = {};
-	Object.assign(requestOptions.body, { numbers: [...numbers] });
+	console.log('REQUEST: ', requestOptions);
 
-	if (((requestOptions.body as any).numbers as string[]).length === 0) {
-		throw new NodeApiError(
-			this.getNode(),
-			{
-				message: [
-					'The listPhoneNumbers parameter must be an array',
-					'listPhoneNumbers must have at least one value',
-				],
-			},
-			{
-				message: 'Check the type of properties and values entered',
-				description: 'Bad Request',
-				httpCode: '400',
-			},
-		);
+	const numbers: string[] = [];
+
+	if (!Array.isArray(body.numbers)) {
+		if (
+			!body?.numbers ||
+			typeof body.numbers !== 'string' ||
+			!(body.numbers as string).match(/\d+/g)
+		) {
+			throw new NodeApiError(
+				this.getNode(),
+				{
+					error: ['listPhoneNumbers cannot be empty', 'listPhoneNumbers must be a numeric string'],
+				},
+				{ message: 'Bad Request', description: 'Check the parameters', httpCode: '400' },
+			);
+		}
+		numbers.push(body.numbers);
 	}
+
+	if (Array.isArray(body.numbers)) {
+		const values: string[] = body.numbers;
+		if (values.length === 0 || [...new Set(values)].length !== values.length)
+			throw new NodeApiError(
+				this.getNode(),
+				{
+					error: [
+						'listPhoneNumbers must not be an empty list',
+						'listPhoneNumbers must have unique values',
+					],
+				},
+				{
+					message: 'Bad Request',
+					description: 'Check the type of properties and values entered',
+					httpCode: '400',
+				},
+			);
+
+		values.map((v, index) => {
+			if (!v.match(/\d+/g)) {
+				throw new NodeApiError(
+					this.getNode(),
+					{ error: `listPhoneNumbers[${index}] must be a numeric string` },
+					{
+						message: 'Bad Request',
+						description: 'Check the type of properties and values entered',
+						httpCode: '400',
+					},
+				);
+			}
+
+			numbers.push(v);
+		});
+	}
+	Object.assign(requestOptions.body as {}, { numbers: [...numbers] });
 
 	return requestOptions;
 }
@@ -244,8 +279,6 @@ export async function sendContactMessage(
 			contactsMessage: [...body.contactMessage.contacts],
 		});
 	}
-
-	console.log('BODY: ', body);
 
 	return requestOptions;
 }

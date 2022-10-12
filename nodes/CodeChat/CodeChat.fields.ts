@@ -20,10 +20,10 @@ const messageResource: INodeProperties[] = [
 		name: 'listPhoneNumbers',
 		type: 'json',
 		default: [],
-		placeholder: `[Array:['5531900000000, '5521911111111']]`,
-		description: 'Phone numbers of message recipients',
+		placeholder: `[Array:['5531900000000, '5521911111111']] or 5531922222222`,
+		description: 'This field supports both a list and a single number.',
 		hint: 'When entering a phone number, make sure to include the country code',
-		routing: { send: { preSend: [formatNumber] } },
+		routing: { send: { type: 'body', property: 'numbers', preSend: [formatNumber] } },
 		displayOptions: { show: { resource: ['sendMessage'] } },
 	},
 
@@ -118,10 +118,18 @@ const messageResource: INodeProperties[] = [
 	...contactProperties,
 ];
 
+const chatResource: INodeProperties[] = [];
+
 export const codechatFields: INodeProperties[] = [
-	/**┌──────────────────────────┐
-	 * │		Resource: Message			│
-	 * └──────────────────────────┘
+	/**┌─────────────────────────────┐
+	 * │      Resource: Message      │
+	 * └─────────────────────────────┘
 	 */
 	...messageResource,
+
+	/**┌──────────────────────────┐
+	 * │      Resource: Caht      │
+	 * └──────────────────────────┘
+	 */
+	...chatResource,
 ];
