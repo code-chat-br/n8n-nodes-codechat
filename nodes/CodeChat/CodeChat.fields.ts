@@ -1,5 +1,15 @@
 import { INodeProperties } from 'n8n-workflow';
 import {
+	blockCobtactProperties,
+	budinessProfileProperties,
+	markMSGReadProperties,
+	onWhatsappProperties,
+	profilePictureProperties,
+	statusContactPorperties,
+	updatePresence,
+	updateStatusProperties,
+} from './descriptions/Chat.desc';
+import {
 	buttonsProperties,
 	contactProperties,
 	linkPreviewProperties,
@@ -118,7 +128,77 @@ const messageResource: INodeProperties[] = [
 	...contactProperties,
 ];
 
-const chatResource: INodeProperties[] = [];
+const chatResource: INodeProperties[] = [
+	{
+		displayName: 'Operation',
+		name: 'operation',
+		noDataExpression: true,
+		placeholder: '',
+		required: true,
+		type: 'options',
+		options: [
+			{ name: 'On WhatsApp', value: 'onWhatsApp' },
+			{ name: 'Update Presence', value: 'updatePresence' },
+			{ name: 'Mark Message As Read', value: 'markMessageAsRead' },
+			{ name: 'Block Contact', value: 'blockContact' },
+			{ name: 'Contact Status', value: 'contactStatus' },
+			{ name: 'Update Status', value: 'updateStatus' },
+			{ name: 'Business Profile', value: 'businesProfile' },
+			{ name: 'Profile Picture Url', value: 'profilePictureUrl' },
+		],
+		default: 'onWhatsApp',
+		routing: { request: { ignoreHttpStatusErrors: true } },
+		displayOptions: { show: { resource: ['chat'] } },
+	},
+
+	/**┌───────────────────────────────────┐
+	 * │      On WhatsApp Properties       │
+	 * └───────────────────────────────────┘
+	 */
+	...onWhatsappProperties,
+
+	/**┌───────────────────────────────────────┐
+	 * │      Update Presence Properties       │
+	 * └───────────────────────────────────────┘
+	 */
+	...updatePresence,
+
+	/**┌───────────────────────────────────┐
+	 * │      Read Message Properties      │
+	 * └───────────────────────────────────┘
+	 */
+	...markMSGReadProperties,
+
+	/**┌────────────────────────────────────┐
+	 * │      Block Contact Properties      │
+	 * └────────────────────────────────────┘
+	 */
+	...blockCobtactProperties,
+
+	/**┌─────────────────────────────────────┐
+	 * │      Status Contact Properties      │
+	 * └─────────────────────────────────────┘
+	 */
+	...statusContactPorperties,
+
+	/**┌────────────────────────────────────┐
+	 * │      Update Status Properties      │
+	 * └────────────────────────────────────┘
+	 */
+	...updateStatusProperties,
+
+	/**┌───────────────────────────────────────┐
+	 * │      Business Profile Properties      │
+	 * └───────────────────────────────────────┘
+	 */
+	...budinessProfileProperties,
+
+	/**┌──────────────────────────────────────┐
+	 * │      Profile Picture Properties      │
+	 * └──────────────────────────────────────┘
+	 */
+	...profilePictureProperties,
+];
 
 export const codechatFields: INodeProperties[] = [
 	/**┌─────────────────────────────┐

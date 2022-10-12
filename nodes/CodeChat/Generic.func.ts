@@ -282,3 +282,21 @@ export async function sendContactMessage(
 
 	return requestOptions;
 }
+
+export async function readMessage(
+	this: IExecuteSingleFunctions,
+	requestOptions: IHttpRequestOptions,
+): Promise<IHttpRequestOptions> {
+	const body = requestOptions.body as any;
+	if (!Array.isArray(body?.readMessage)) {
+		throw new NodeApiError(
+			this.getNode(),
+			{ error: 'readMessagesProperty must be an array' },
+			{ message: 'Bad request', description: 'check properties', httpCode: '400' },
+		);
+	}
+
+	requestOptions.body = [...body.readMessage];
+
+	return requestOptions;
+}
