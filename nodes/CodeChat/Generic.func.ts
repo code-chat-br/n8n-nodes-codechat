@@ -99,17 +99,6 @@ export async function prepareShippingOptions(
 	return requestOptions;
 }
 
-export async function sendTextMessage(
-	this: IExecuteSingleFunctions,
-	requestOptions: IHttpRequestOptions,
-): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as any;
-
-	Object.assign(requestOptions.body as {}, { textMessage: { text: (body.text as string).trim() } });
-
-	return requestOptions;
-}
-
 export async function sendButtonsMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
@@ -142,7 +131,6 @@ export async function sendTemplateMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	console.log('REQUEST: ', requestOptions);
 	const body = requestOptions.body as any;
 
 	if (body?.mediaData) {
@@ -163,6 +151,101 @@ export async function sendTemplateMessage(
 	delete body.mediaData;
 
 	Object.assign(requestOptions.body as {}, { ...body });
+
+	return requestOptions;
+}
+
+export async function sendListMessage(
+	this: IExecuteSingleFunctions,
+	requestOptions: IHttpRequestOptions,
+): Promise<IHttpRequestOptions> {
+	const body = requestOptions.body as any;
+
+	const listFieldTypeProperty = this.getNodeParameter('listFieldTypeProperty');
+
+	let sections: any[] | undefined;
+
+	if (listFieldTypeProperty === 'collection') {
+		const listMessage = {
+			title: body.listMessage.title,
+			description: body.listMessage.description,
+			footerText: body.listMessage.footerText,
+			buttonText: body.listMessage.buttonText,
+			sections: (body.listMessage.sections as any[]).map((section) => {
+				return {
+					title: section.title,
+					rows: section.rowsProperty.rows,
+				};
+			}),
+		};
+
+		sections = listMessage.sections;
+
+		Object.assign(requestOptions.body as {}, { listMessage });
+	} else {
+		sections = body.listMessage?.sections;
+	}
+
+	if (
+		!Array.isArray(sections) ||
+		sections.length === 0 ||
+		sections.length !== [...new Set(sections)].length
+	) {
+		throw new NodeApiError(
+			this.getNode(),
+			{ error: ['List items must not be empty', 'List items must be unique'] },
+			{ message: 'Bad Request', description: 'check properties', httpCode: '400' },
+		);
+	}
+
+	sections.forEach((section, index) => {
+		if (!section?.title) {
+			throw new NodeApiError(
+				this.getNode(),
+				{ error: `Section[${index}].title is empty` },
+				{ message: 'Dad Request', description: 'Title cannot be empty', httpCode: '400' },
+			);
+		}
+
+		if (
+			!Array.isArray(section?.rows) ||
+			!section.rows?.length ||
+			section.rows.length === 0 ||
+			[...new Set(section.rows)].length !== section.rows.length
+		) {
+			throw new NodeApiError(
+				this.getNode(),
+				{ error: 'Empty list items' },
+				{ message: 'Bad Request', description: 'List items cannot be empty', httpCode: '400' },
+			);
+		}
+
+		if ([...new Set(section.rows)].length !== section.rows.length) {
+			throw new NodeApiError(
+				this.getNode(),
+				{ error: ['List items must not be empty', 'List items must be unique'] },
+				{ message: 'Bad Request', description: 'check properties', httpCode: '400' },
+			);
+		}
+	});
+
+	return requestOptions;
+}
+
+export async function sendContactMessage(
+	this: IExecuteSingleFunctions,
+	requestOptions: IHttpRequestOptions,
+): Promise<IHttpRequestOptions> {
+	const body = requestOptions.body as any;
+
+	const contactTypeProperty = this.getNodeParameter('contactTypeProperty');
+	if (contactTypeProperty === 'collection') {
+		Object.assign(requestOptions.body as {}, {
+			contactsMessage: [...body.contactMessage.contacts],
+		});
+	}
+
+	console.log('BODY: ', body);
 
 	return requestOptions;
 }

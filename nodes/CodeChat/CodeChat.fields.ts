@@ -1,28 +1,20 @@
 import { INodeProperties } from 'n8n-workflow';
 import {
 	buttonsProperties,
+	contactProperties,
+	linkPreviewProperties,
+	listProperties,
+	locationProperties,
+	mediaBase64MessgeProperties,
+	mediaMessageProperties,
 	optionsProperties,
 	templateProperties,
 	textProperties,
+	whatsAppAudioProperties,
 } from './descriptions/SendMessage.desc';
-import { formatNumber, sendErrorPostReceive } from './Generic.func';
+import { formatNumber } from './Generic.func';
 
 const messageResource: INodeProperties[] = [
-	{
-		displayName: 'Operation',
-		name: 'operation',
-		noDataExpression: true,
-		placeholder: '',
-		type: 'options',
-		options: [
-			{ name: 'Send Message', value: 'sendMessage', action: 'sendMessage' },
-			{ name: 'Fetch Queue', value: 'queue', action: 'fetchQueue' },
-		],
-		default: 'sendMessage',
-		displayOptions: { show: { resource: ['message'] } },
-		routing: { output: { postReceive: [sendErrorPostReceive] } },
-	},
-
 	{
 		displayName: 'List recipient phone numbers',
 		name: 'listPhoneNumbers',
@@ -32,12 +24,7 @@ const messageResource: INodeProperties[] = [
 		description: 'Phone numbers of message recipients',
 		hint: 'When entering a phone number, make sure to include the country code',
 		routing: { send: { preSend: [formatNumber] } },
-		displayOptions: {
-			show: {
-				resource: ['message'],
-				operation: ['sendMessage'],
-			},
-		},
+		displayOptions: { show: { resource: ['sendMessage'] } },
 	},
 
 	/**┌──────────────────────────────┐
@@ -47,31 +34,27 @@ const messageResource: INodeProperties[] = [
 	...optionsProperties,
 
 	{
-		displayName: 'Message Type',
-		name: 'messageType',
+		displayName: 'Operation',
+		name: 'operation',
 		noDataExpression: true,
-		type: 'options',
 		placeholder: '',
+		required: true,
+		type: 'options',
 		options: [
-			{ name: 'Text', value: 'text', action: 'sendText' },
-			{ name: 'Buttons', value: 'buttons', action: 'sendButtons' },
-			{ name: 'Template', value: 'template', action: 'sendTemplate' },
-			{ name: 'Media', value: 'media', action: 'sendMedia' },
-			{ name: 'Media Base64', value: 'mediaBase64', action: 'sendMediaBase64' },
-			{ name: 'WhatsApp Audio', value: 'whatsAppAudio', action: 'sendWhatsAppAudio' },
-			{ name: 'Location', value: 'location', action: 'sendLocation' },
-			{ name: 'List', value: 'list', action: 'sendList' },
-			{ name: 'Link Preview', value: 'linkPreview', action: 'sendLinkPreview' },
-			{ name: 'Contact', value: 'contact', action: 'sendContact' },
+			{ name: 'Send Text', value: 'sendText' },
+			{ name: 'Send Buttons', value: 'sendButtons' },
+			{ name: 'Send Template', value: 'sendTemplate' },
+			{ name: 'Send Media', value: 'sendMedia' },
+			{ name: 'Send Media Base64', value: 'sendMediaBase64' },
+			{ name: 'Send WhatsApp Audio', value: 'sendWhatsAppAudio' },
+			{ name: 'Send Location', value: 'sendLocation' },
+			{ name: 'Send List', value: 'sendList' },
+			{ name: 'Send Link Preview', value: 'sendLinkPreview' },
+			{ name: 'Send Contact', value: 'sendContact' },
 		],
-		default: 'text',
+		default: 'sendText',
 		routing: { request: { ignoreHttpStatusErrors: true } },
-		displayOptions: {
-			show: {
-				resource: ['message'],
-				operation: ['sendMessage'],
-			},
-		},
+		displayOptions: { show: { resource: ['sendMessage'] } },
 	},
 
 	/**┌───────────────────────────┐
@@ -91,6 +74,48 @@ const messageResource: INodeProperties[] = [
 	 * └───────────────────────────────┘
 	 */
 	...templateProperties,
+
+	/**┌────────────────────────────┐
+	 * │      Media Properties      │
+	 * └────────────────────────────┘
+	 */
+	...mediaMessageProperties,
+
+	/**┌───────────────────────────────────┐
+	 * │      Media Base64 Properties      │
+	 * └───────────────────────────────────┘
+	 */
+	...mediaBase64MessgeProperties,
+
+	/**┌───────────────────────────────┐
+	 * │      WhatsApp Properties      │
+	 * └───────────────────────────────┘
+	 */
+	...whatsAppAudioProperties,
+
+	/**┌───────────────────────────────┐
+	 * │      Location Properties      │
+	 * └───────────────────────────────┘
+	 */
+	...locationProperties,
+
+	/**┌───────────────────────────┐
+	 * │      List Properties      │
+	 * └───────────────────────────┘
+	 */
+	...listProperties,
+
+	/**┌───────────────────────────────────┐
+	 * │      Link Preview Properties      │
+	 * └───────────────────────────────────┘
+	 */
+	...linkPreviewProperties,
+
+	/**┌───────────────────────────────┐
+	 * │       Contact Properties      │
+	 * └───────────────────────────────┘
+	 */
+	...contactProperties,
 ];
 
 export const codechatFields: INodeProperties[] = [

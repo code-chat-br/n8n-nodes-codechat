@@ -1,5 +1,6 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 import { codechatFields } from './CodeChat.fields';
+import { sendErrorPostReceive } from './Generic.func';
 
 export class CodeChat implements INodeType {
 	description: INodeTypeDescription = {
@@ -22,13 +23,14 @@ export class CodeChat implements INodeType {
 				type: 'options',
 				noDataExpression: true,
 				options: [
-					{ name: 'Message', value: 'message' },
+					{ name: 'Send Message', value: 'sendMessage' },
 					{ name: 'Group', value: 'group' },
 					{ name: 'Chat', value: 'chat' },
 					{ name: 'Payment', value: 'payment' },
 					{ name: 'Business', value: 'business' },
 				],
 				default: 'message',
+				routing: { output: { postReceive: [sendErrorPostReceive] } },
 			},
 
 			...codechatFields,
