@@ -19,6 +19,7 @@ export class CodeChat implements INodeType {
 		properties: [
 			{
 				displayName: 'Resource',
+				required: true,
 				name: 'resource',
 				type: 'options',
 				noDataExpression: true,
@@ -26,10 +27,9 @@ export class CodeChat implements INodeType {
 					{ name: 'Send Message', value: 'sendMessage' },
 					{ name: 'Group', value: 'group' },
 					{ name: 'Chat', value: 'chat' },
-					{ name: 'Payment', value: 'payment' },
 					{ name: 'Business', value: 'business' },
 				],
-				default: 'message',
+				default: 'sendMessage',
 				routing: { output: { postReceive: [sendErrorPostReceive] } },
 			},
 

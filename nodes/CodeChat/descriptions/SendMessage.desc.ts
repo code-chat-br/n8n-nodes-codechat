@@ -144,13 +144,12 @@ export const buttonsProperties: INodeProperties[] = [
 
 	{
 		displayName: 'Collection Field',
-		name: 'collectionProperty',
+		name: 'collectionFieldProperty',
 		required: true,
 		placeholder: 'Add Reply Buttons',
 		type: 'fixedCollection',
 		default: '',
 		typeOptions: { multipleValues: true, maxValue: 3 },
-		description: '',
 		options: [
 			{
 				displayName: 'Reply Buttons',

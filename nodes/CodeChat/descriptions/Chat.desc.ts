@@ -115,7 +115,7 @@ export const markMSGReadProperties: INodeProperties[] = [
 
 export const blockCobtactProperties: INodeProperties[] = [
 	{
-		displayName: 'Recipient phone numbers',
+		displayName: 'Phone Number',
 		name: 'numberProperty',
 		required: true,
 		type: 'string',
@@ -185,41 +185,16 @@ export const statusContactPorperties: INodeProperties[] = [
 
 export const updateStatusProperties: INodeProperties[] = [
 	{
-		displayName: 'Recipient phone numbers',
-		name: 'numberProperty',
-		required: true,
-		type: 'string',
-		default: '',
-		routing: { send: { type: 'query', property: 'number' } },
-		displayOptions: {
-			show: {
-				resource: ['chat'],
-				operation: ['updateStatus'],
-			},
-		},
-	},
-
-	{
 		displayName: 'Status',
 		name: 'StatusProperty',
 		required: true,
 		type: 'string',
+		description: 'Update the status of the logged in number',
 		default: '',
-		routing: { send: { type: 'body', property: 'status' } },
-		displayOptions: {
-			show: {
-				resource: ['chat'],
-				operation: ['updateStatus'],
-			},
+		routing: {
+			send: { type: 'body', property: 'status' },
+			request: { url: '=' + shippingURL('chat', 'updateStaus'), method: 'PUT' },
 		},
-	},
-
-	{
-		displayName: 'Set Routing',
-		name: 'setRouting',
-		type: 'hidden',
-		default: '',
-		routing: { request: { url: '=' + shippingURL('chat', 'updateStaus'), method: 'PUT' } },
 		displayOptions: {
 			show: {
 				resource: ['chat'],
@@ -231,11 +206,13 @@ export const updateStatusProperties: INodeProperties[] = [
 
 export const budinessProfileProperties: INodeProperties[] = [
 	{
-		displayName: 'Recipient phone numbers',
+		displayName: 'Phone Number',
 		name: 'numberProperty',
 		required: true,
 		type: 'string',
 		default: '',
+		description: `Retrieve a contact's business information`,
+		placeholder: '5531900000000',
 		routing: {
 			send: { type: 'query', property: 'number' },
 			request: { url: '=' + shippingURL('chat', 'fetchBusinessProfile'), method: 'GET' },
@@ -251,11 +228,13 @@ export const budinessProfileProperties: INodeProperties[] = [
 
 export const profilePictureProperties: INodeProperties[] = [
 	{
-		displayName: 'Recipient phone numbers',
+		displayName: 'Pnhone Number',
 		name: 'numberProperty',
+		description: 'Retrieve profile picture url of some contact',
 		required: true,
 		type: 'string',
 		default: '',
+		placeholder: '5531900000000',
 		routing: {
 			send: { type: 'query', property: 'number' },
 			request: { url: '=' + shippingURL('chat', 'fetchProfilePictureUrl'), method: 'GET' },

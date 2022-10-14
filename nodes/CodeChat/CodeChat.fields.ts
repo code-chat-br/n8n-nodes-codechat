@@ -10,6 +10,20 @@ import {
 	updateStatusProperties,
 } from './descriptions/Chat.desc';
 import {
+	acceptInviteCodeProperties,
+	changeExpirationProperties,
+	createGroupPrperties,
+	fetchParticipantsProperties,
+	groupInviteCodeProperties,
+	groupMetadataProperties,
+	leaveGroupProperties,
+	revokeInviteCodeProperties,
+	updateGroupProperties,
+	updateParticipantsPorperties,
+	updatePropfilePictureProperties,
+	updateSettingsGroupProperties,
+} from './descriptions/Group.desc';
+import {
 	buttonsProperties,
 	contactProperties,
 	linkPreviewProperties,
@@ -206,23 +220,98 @@ const groupResource: INodeProperties[] = [
 		name: 'operation',
 		required: true,
 		noDataExpression: true,
-		placeholder: '',
 		type: 'options',
-		typeOptions: { multipleValues: true },
 		options: [
 			{ name: 'Create Group', value: 'createGroup' },
 			{ name: 'Invite Code', value: 'inviteCode' },
 			{ name: 'Revoke Invite', value: 'revokeInvite' },
-			{ name: 'Acept Invite', value: 'acceptInvite' },
+			{ name: 'Accept Invite', value: 'acceptInvite' },
 			{ name: 'Update Info', value: 'updateInfo' },
 			{ name: 'Update Profile Picture', value: 'updatePicture' },
+			{ name: 'Group Metadata', value: 'groupMetadata' },
+			{ name: 'Update Participants', value: 'updateParticipants' },
 			{ name: 'Update Settings', value: 'updateSettings' },
 			{ name: 'Change Expiration', value: 'changeExpiration' },
 			{ name: 'Fetch Participants', value: 'fetchParticpants' },
+			{ name: 'Leave the group', value: 'leaveGroup' },
 		],
 		default: 'createGroup',
-		displayOptions: { show: { resource: ['group'] } },
+		displayOptions: {
+			show: { resource: ['group'] },
+		},
 	},
+
+	/**┌───────────────────────────────────┐
+	 * │      Create Group Properties      │
+	 * └───────────────────────────────────┘
+	 */
+	...createGroupPrperties,
+
+	/**┌──────────────────────────────────┐
+	 * │      Invite Code Properties      │
+	 * └──────────────────────────────────┘
+	 */
+	...groupInviteCodeProperties,
+
+	/**┌────────────────────────────────────┐
+	 * │      Accept Invite Properties      │
+	 * └────────────────────────────────────┘
+	 */
+	...acceptInviteCodeProperties,
+
+	/**┌────────────────────────────────────┐
+	 * │      Revoke Invite Properties      │
+	 * └────────────────────────────────────┘
+	 */
+	...revokeInviteCodeProperties,
+
+	/**┌───────────────────────────────────┐
+	 * │      Update Group Properties      │
+	 * └───────────────────────────────────┘
+	 */
+	...updateGroupProperties,
+
+	/**┌─────────────────────────────────────────────┐
+	 * │      Update Profile Picture Properties      │
+	 * └─────────────────────────────────────────────┘
+	 */
+	...updatePropfilePictureProperties,
+
+	/**┌─────────────────────────────────────┐
+	 * │      Group Metadata Properties      │
+	 * └─────────────────────────────────────┘
+	 */
+	...groupMetadataProperties,
+
+	/**┌──────────────────────────────────────────┐
+	 * │      Update Participants Properties      │
+	 * └──────────────────────────────────────────┘
+	 */
+	...updateParticipantsPorperties,
+
+	/**┌──────────────────────────────────────┐
+	 * │      Update Settings Properties      │
+	 * └──────────────────────────────────────┘
+	 */
+	...updateSettingsGroupProperties,
+
+	/**┌────────────────────────────────────────┐
+	 * │      Change Expiration Properties      │
+	 * └────────────────────────────────────────┘
+	 */
+	...changeExpirationProperties,
+
+	/**┌────────────────────────────────────────────┐
+	 * │      Retrieve Participants Properties      │
+	 * └────────────────────────────────────────────┘
+	 */
+	...fetchParticipantsProperties,
+
+	/**┌──────────────────────────────────┐
+	 * │      Leave Group Properties      │
+	 * └──────────────────────────────────┘
+	 */
+	...leaveGroupProperties,
 ];
 
 export const codechatFields: INodeProperties[] = [

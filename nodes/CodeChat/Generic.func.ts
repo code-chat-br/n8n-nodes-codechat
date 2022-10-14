@@ -300,3 +300,42 @@ export async function readMessage(
 
 	return requestOptions;
 }
+
+export async function createGroup(
+	this: IExecuteSingleFunctions,
+	requestOptions: IHttpRequestOptions,
+): Promise<IHttpRequestOptions> {
+	const body = requestOptions.body as any;
+
+	if (!Array.isArray(body.participants)) {
+		body.participants = [body.participants];
+	}
+	const descriptionGruop = this.getNodeParameter(
+		'descriptionProperty.groupDescription.description',
+	);
+	const profilePicture = this.getNodeParameter(
+		'profilePictureProperty.profilePictureGroup.profilePicture',
+	);
+
+	Object.assign(requestOptions.body as {}, { descriptionGruop, profilePicture });
+
+	return requestOptions;
+}
+
+export async function updateGroupIngo(
+	this: IExecuteSingleFunctions,
+	requestOptions: IHttpRequestOptions,
+): Promise<IHttpRequestOptions> {
+	const body = requestOptions.body as any;
+
+	const keys = Object.keys(body) || [];
+	if (keys.length === 0) {
+		throw new NodeApiError(
+			this.getNode(),
+			{ error: ['The Subject and Description properties are missing', 'Report at least one'] },
+			{ message: 'Bad Request', description: 'Properties not found', httpCode: '400' },
+		);
+	}
+
+	return requestOptions;
+}
