@@ -200,6 +200,31 @@ const chatResource: INodeProperties[] = [
 	...profilePictureProperties,
 ];
 
+const groupResource: INodeProperties[] = [
+	{
+		displayName: 'Operation',
+		name: 'operation',
+		required: true,
+		noDataExpression: true,
+		placeholder: '',
+		type: 'options',
+		typeOptions: { multipleValues: true },
+		options: [
+			{ name: 'Create Group', value: 'createGroup' },
+			{ name: 'Invite Code', value: 'inviteCode' },
+			{ name: 'Revoke Invite', value: 'revokeInvite' },
+			{ name: 'Acept Invite', value: 'acceptInvite' },
+			{ name: 'Update Info', value: 'updateInfo' },
+			{ name: 'Update Profile Picture', value: 'updatePicture' },
+			{ name: 'Update Settings', value: 'updateSettings' },
+			{ name: 'Change Expiration', value: 'changeExpiration' },
+			{ name: 'Fetch Participants', value: 'fetchParticpants' },
+		],
+		default: 'createGroup',
+		displayOptions: { show: { resource: ['group'] } },
+	},
+];
+
 export const codechatFields: INodeProperties[] = [
 	/**┌─────────────────────────────┐
 	 * │      Resource: Message      │
@@ -212,4 +237,10 @@ export const codechatFields: INodeProperties[] = [
 	 * └──────────────────────────┘
 	 */
 	...chatResource,
+
+	/**┌───────────────────────────┐
+	 * │      Resource: Group      │
+	 * └───────────────────────────┘
+	 */
+	...groupResource,
 ];
