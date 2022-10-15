@@ -377,23 +377,6 @@ export const updateParticipantsPorperties: INodeProperties[] = [
 	},
 
 	{
-		displayName: 'Participants',
-		name: 'participantsList',
-		type: 'json',
-		default: [],
-		placeholder: `[Array:['5531900000000, '5521911111111']] or 5531922222222`,
-		description: 'This field supports both a list and a single number.',
-		hint: 'When entering a phone number, make sure to include the country code',
-		routing: { send: { type: 'body', property: 'participants' } },
-		displayOptions: {
-			show: {
-				resource: ['group'],
-				operation: ['updateParticipants'],
-			},
-		},
-	},
-
-	{
 		displayName: 'Sert Routing',
 		name: 'setRouting',
 		type: 'hidden',
@@ -507,7 +490,7 @@ export const changeExpirationProperties: INodeProperties[] = [
 			{ name: 'One week', value: 7 },
 			{ name: 'Quarterly', value: 90 },
 		],
-		default: 'announcement',
+		default: 0,
 		displayOptions: {
 			show: {
 				resource: ['group'],
@@ -570,7 +553,7 @@ export const fetchParticipantsProperties: INodeProperties[] = [
 			{ name: 'Admin', value: 'admin' },
 			{ name: 'Super admin', value: 'superadmin' },
 		],
-		default: 'announcement',
+		default: 'all',
 		displayOptions: {
 			show: {
 				resource: ['group'],

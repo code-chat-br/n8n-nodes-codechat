@@ -51,8 +51,6 @@ export async function formatNumber(
 ): Promise<IHttpRequestOptions> {
 	const body = requestOptions.body as any;
 
-	console.log('REQUEST: ', requestOptions);
-
 	const numbers: string[] = [];
 
 	if (!Array.isArray(body.numbers)) {
