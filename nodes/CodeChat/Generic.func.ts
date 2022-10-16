@@ -5,6 +5,7 @@ import {
 	INodeExecutionData,
 	NodeApiError,
 } from 'n8n-workflow';
+import { proto } from './CodeChat';
 
 export async function sendErrorPostReceive(
 	this: IExecuteSingleFunctions,
@@ -115,7 +116,7 @@ export async function prepareShippingOptions(
 ): Promise<IHttpRequestOptions> {
 	const body = requestOptions.body;
 
-	const opts: { [key: string]: any } = {};
+	const opts: { [key: string]: {} | number | string[] } = {};
 	if (body?.options)
 		for (const [key, value] of Object.entries(body.options)) {
 			if (isNotempty(value as string)) {
@@ -196,7 +197,7 @@ export async function sendListMessage(
 
 	const listFieldTypeProperty = this.getNodeParameter('listFieldTypeProperty');
 
-	let sections: any[] | undefined;
+	let sections: proto.Isection[];
 
 	if (listFieldTypeProperty === 'collection') {
 		const listMessage = {
@@ -204,10 +205,10 @@ export async function sendListMessage(
 			description: body.listMessage.description,
 			footerText: body.listMessage.footerText,
 			buttonText: body.listMessage.buttonText,
-			sections: (body.listMessage.sections as any[]).map((section) => {
+			sections: (body.listMessage.sections as proto.Isection[]).map((section) => {
 				return {
 					title: section.title,
-					rows: section.rowsProperty.rows,
+					rows: section.rowsProperty!.rows,
 				};
 			}),
 		};
