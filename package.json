@@ -1,9 +1,12 @@
 {
-  "name": "n8n-nodes-codechat",
+  "name": "n8n-community-node-codechat",
   "version": "0.1.0",
   "description": "",
   "keywords": [
-    "n8n-community-node-package",
+    "n8n",
+    "node",
+    "no-code",
+    "n8n-community-node-codechat",
     "whatsapp",
     "js-whatsapp",
     "whatsapp-api",
