@@ -73,7 +73,7 @@ export async function formatNumber(
 
 	if (Array.isArray(body.numbers)) {
 		const values: string[] = body.numbers;
-		if (values.length === 0 || [...new Set(values)].length !== values.length)
+		if (values.length === 0 || [...new Set(values)].length !== values.length) {
 			throw new NodeApiError(
 				this.getNode(),
 				{
@@ -88,6 +88,7 @@ export async function formatNumber(
 					httpCode: '400',
 				},
 			);
+		}
 
 		values.map((v, index) => {
 			if (!v.match(/\d+/g)) {
@@ -117,7 +118,7 @@ export async function prepareShippingOptions(
 	const body = requestOptions.body;
 
 	const opts: { [key: string]: {} | number | string[] } = {};
-	if (body?.options)
+	if (body?.options) {
 		for (const [key, value] of Object.entries(body.options)) {
 			if (isNotempty(value as string)) {
 				if (key === 'quoted') {
@@ -127,6 +128,7 @@ export async function prepareShippingOptions(
 				opts[key] = value as number | string[];
 			}
 		}
+	}
 
 	Object.assign(requestOptions.body as {}, { options: opts });
 
