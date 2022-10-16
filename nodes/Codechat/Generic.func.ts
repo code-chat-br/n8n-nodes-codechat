@@ -5,14 +5,14 @@ import {
 	INodeExecutionData,
 	NodeApiError,
 } from 'n8n-workflow';
-import { proto } from './Codechat';
+import { RequestBody } from './Codechat';
 
 export async function sendErrorPostReceive(
 	this: IExecuteSingleFunctions,
 	data: INodeExecutionData[],
 	response: IN8nHttpFullResponse,
 ): Promise<INodeExecutionData[]> {
-	const body = response?.body;
+	const body = response?.body as RequestBody.IError;
 	if (body?.error) {
 		if (body?.error) {
 			throw new NodeApiError(
@@ -50,7 +50,7 @@ export async function formatNumber(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body;
+	const body = requestOptions.body as RequestBody.INumbers;
 
 	const numbers: string[] = [];
 
@@ -115,7 +115,7 @@ export async function prepareShippingOptions(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body;
+	const body = requestOptions.body as RequestBody.IOptions;
 
 	const opts: { [key: string]: {} | number | string[] } = {};
 	if (body?.options) {
@@ -139,20 +139,20 @@ export async function sendButtonsMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body;
+	const body = requestOptions.body as RequestBody.IButtonsMessage;
 
 	if (body?.mediaData) {
 		if (body.mediaData?.type && body.mediaData?.source) {
 			body.buttonsMessage.mediaMessage = {
-				mediaType: body.mediaData?.type,
-				url: body.mediaData?.source,
+				mediaType: body.mediaData.type,
+				url: body.mediaData.source,
 			};
 		}
 	}
 
 	const buttonFieldTypeProperty = this.getNodeParameter('buttonFieldTypeProperty');
 	if (buttonFieldTypeProperty === 'collection') {
-		body.buttonsMessage.buttons = body.buttons.replyButtons;
+		body.buttonsMessage.buttons = body.buttons!.replyButtons;
 	}
 
 	delete body.buttons;
@@ -167,7 +167,7 @@ export async function sendTemplateMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body;
+	const body = requestOptions.body as RequestBody.ITemplateMessage;
 
 	if (body?.mediaData) {
 		if (body.mediaData?.type && body.mediaData?.source) {
@@ -180,7 +180,7 @@ export async function sendTemplateMessage(
 
 	const templateFieldTypeProperty = this.getNodeParameter('templateFieldTypeProperty');
 	if (templateFieldTypeProperty === 'collection') {
-		body.templateMessage.buttons = body.buttons.templateButtons;
+		body.templateMessage.buttons = body.buttons!.templateButtons;
 	}
 
 	delete body.buttons;
@@ -195,11 +195,11 @@ export async function sendListMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body;
+	const body = requestOptions.body as RequestBody.IListMessage;
 
 	const listFieldTypeProperty = this.getNodeParameter('listFieldTypeProperty');
 
-	let sections: proto.Isection[];
+	let sections: RequestBody.Isection[];
 
 	if (listFieldTypeProperty === 'collection') {
 		const listMessage = {
@@ -207,7 +207,7 @@ export async function sendListMessage(
 			description: body.listMessage.description,
 			footerText: body.listMessage.footerText,
 			buttonText: body.listMessage.buttonText,
-			sections: (body.listMessage.sections as proto.Isection[]).map((section) => {
+			sections: (body.listMessage.sections as RequestBody.Isection[]).map((section) => {
 				return {
 					title: section.title,
 					rows: section.rowsProperty!.rows,
@@ -272,7 +272,7 @@ export async function sendContactMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body;
+	const body = requestOptions.body as RequestBody.IContactMessage;
 
 	const contactTypeProperty = this.getNodeParameter('contactTypeProperty');
 	if (contactTypeProperty === 'collection') {
@@ -288,7 +288,7 @@ export async function readMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body;
+	const body = requestOptions.body as RequestBody.IReadMessage;
 	if (!Array.isArray(body?.readMessage)) {
 		throw new NodeApiError(
 			this.getNode(),
@@ -306,7 +306,7 @@ export async function createGroup(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body;
+	const body = requestOptions.body as RequestBody.ICreateGroup;
 
 	if (!Array.isArray(body.participants)) {
 		body.participants = [...body.participants.replace(/[' ']+/gm, '').split(/,/)];
@@ -328,7 +328,7 @@ export async function updateGroupIngo(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body;
+	const body = requestOptions.body as {};
 
 	const keys = Object.keys(body) || [];
 	if (keys.length === 0) {
