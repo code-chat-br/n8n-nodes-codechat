@@ -23,7 +23,7 @@ export const createGroupPrperties: INodeProperties[] = [
 		type: 'json',
 		default: [],
 		placeholder: `[Array:['5531900000000, '5521911111111']] or 5531922222222`,
-		description: 'This field supports both a list and a single number.',
+		description: 'This field supports a list, or a single number, or comma-separated numbers',
 		hint: 'When entering a phone number, make sure to include the country code',
 		routing: { send: { type: 'body', property: 'participants' } },
 		displayOptions: {
@@ -105,7 +105,7 @@ export const createGroupPrperties: INodeProperties[] = [
 		routing: {
 			send: { preSend: [createGroup] },
 			request: {
-				url: '=' + shippingURL('group', 'createGroup'),
+				url: '=' + shippingURL('group', 'create'),
 				method: 'POST',
 			},
 		},
@@ -578,8 +578,8 @@ export const fetchParticipantsProperties: INodeProperties[] = [
 		},
 		routing: {
 			request: {
-				url: '=' + shippingURL('group', 'fetchParticpants'),
-				method: 'PUT',
+				url: '=' + shippingURL('group', 'fetchParticipants'),
+				method: 'GET',
 			},
 		},
 	},

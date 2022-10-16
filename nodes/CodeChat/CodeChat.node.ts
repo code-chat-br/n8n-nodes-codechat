@@ -27,7 +27,6 @@ export class CodeChat implements INodeType {
 					{ name: 'Send Message', value: 'sendMessage' },
 					{ name: 'Group', value: 'group' },
 					{ name: 'Chat', value: 'chat' },
-					{ name: 'Business', value: 'business' },
 				],
 				default: 'sendMessage',
 				routing: { output: { postReceive: [sendErrorPostReceive] } },

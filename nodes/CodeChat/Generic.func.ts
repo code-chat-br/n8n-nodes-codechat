@@ -306,8 +306,9 @@ export async function createGroup(
 	const body = requestOptions.body as any;
 
 	if (!Array.isArray(body.participants)) {
-		body.participants = [body.participants];
+		body.participants = [...body.participants.replace(/[' ']+/gm, '').split(/,/)];
 	}
+
 	const descriptionGruop = this.getNodeParameter(
 		'descriptionProperty.groupDescription.description',
 	);
