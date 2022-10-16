@@ -11,8 +11,8 @@ export async function sendErrorPostReceive(
 	data: INodeExecutionData[],
 	response: IN8nHttpFullResponse,
 ): Promise<INodeExecutionData[]> {
-	if ((response?.body as any)?.error) {
-		const body: any = response.body;
+	const body = response?.body;
+	if (body?.error) {
 		if (body?.error) {
 			throw new NodeApiError(
 				this.getNode(),
@@ -29,7 +29,7 @@ export async function sendErrorPostReceive(
 	return data;
 }
 
-function isNotempty(value: any) {
+function isNotempty(value: string) {
 	if (!value) return false;
 	if (typeof value === 'string' && value === '') return false;
 	return true;
@@ -49,7 +49,7 @@ export async function formatNumber(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as any;
+	const body = requestOptions.body;
 
 	const numbers: string[] = [];
 
@@ -113,12 +113,12 @@ export async function prepareShippingOptions(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as any;
+	const body = requestOptions.body;
 
-	const opts: any = {};
+	const opts: { [key: string]: any } = {};
 	if (body?.options)
 		for (const [key, value] of Object.entries(body.options)) {
-			if (isNotempty(value)) {
+			if (isNotempty(value as string)) {
 				if (key === 'quoted') {
 					opts[key] = { messageId: value as string };
 					continue;
@@ -136,7 +136,7 @@ export async function sendButtonsMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as any;
+	const body = requestOptions.body;
 
 	if (body?.mediaData) {
 		if (body.mediaData?.type && body.mediaData?.source) {
@@ -164,7 +164,7 @@ export async function sendTemplateMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as any;
+	const body = requestOptions.body;
 
 	if (body?.mediaData) {
 		if (body.mediaData?.type && body.mediaData?.source) {
@@ -192,7 +192,7 @@ export async function sendListMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as any;
+	const body = requestOptions.body;
 
 	const listFieldTypeProperty = this.getNodeParameter('listFieldTypeProperty');
 
@@ -269,7 +269,7 @@ export async function sendContactMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as any;
+	const body = requestOptions.body;
 
 	const contactTypeProperty = this.getNodeParameter('contactTypeProperty');
 	if (contactTypeProperty === 'collection') {
@@ -285,7 +285,7 @@ export async function readMessage(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as any;
+	const body = requestOptions.body;
 	if (!Array.isArray(body?.readMessage)) {
 		throw new NodeApiError(
 			this.getNode(),
@@ -303,7 +303,7 @@ export async function createGroup(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as any;
+	const body = requestOptions.body;
 
 	if (!Array.isArray(body.participants)) {
 		body.participants = [...body.participants.replace(/[' ']+/gm, '').split(/,/)];
@@ -325,7 +325,7 @@ export async function updateGroupIngo(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as any;
+	const body = requestOptions.body;
 
 	const keys = Object.keys(body) || [];
 	if (keys.length === 0) {
