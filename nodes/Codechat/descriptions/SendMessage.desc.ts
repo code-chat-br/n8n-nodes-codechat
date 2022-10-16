@@ -12,7 +12,6 @@ export const optionsProperties: INodeProperties[] = [
 	{
 		displayName: 'Quote Message',
 		name: 'quoted',
-		required: false,
 		default: '',
 		hint: 'Enter the ID of the message you want to quote',
 		placeholder: 'messageId',
@@ -24,10 +23,9 @@ export const optionsProperties: INodeProperties[] = [
 	{
 		displayName: 'Mention Contact',
 		name: 'mentioned',
-		required: false,
 		default: '',
 		hint: 'Insert a list with the contact(s) of the user(s) to be mentioned.',
-		description: 'Mentions in both group chats and simple chats.',
+		description: 'Mentions in both group chats and simple chats',
 		placeholder: `[Array:['5531900000000, '5521911111111']]`,
 		type: 'json',
 		displayOptions: { show: { resource: ['sendMessage'] } },
@@ -37,9 +35,8 @@ export const optionsProperties: INodeProperties[] = [
 	{
 		displayName: 'Delay Message',
 		name: 'delayMessage',
-		required: false,
 		default: '',
-		description: 'Enter the delay with which each message will be delivered.',
+		description: 'Enter the delay with which each message will be delivered',
 		placeholder: '1200 milliseconds',
 		type: 'number',
 		displayOptions: { show: { resource: ['sendMessage'] } },
@@ -148,7 +145,7 @@ export const buttonsProperties: INodeProperties[] = [
 		required: true,
 		placeholder: 'Add Reply Buttons',
 		type: 'fixedCollection',
-		default: '',
+		default: {},
 		typeOptions: { multipleValues: true, maxValue: 3 },
 		options: [
 			{
@@ -191,7 +188,7 @@ export const buttonsProperties: INodeProperties[] = [
 		placeholder: `[Array:[{displayText: 'Button Text', buttonId: 'btnId01'}]]`,
 		type: 'json',
 		default: [],
-		description: 'Map a json directly to this field',
+		description: 'Map a JSON directly to this field',
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -207,7 +204,7 @@ export const buttonsProperties: INodeProperties[] = [
 		name: 'mediaMessageProperty',
 		placeholder: 'Add Media Message',
 		type: 'fixedCollection',
-		default: '',
+		default: {},
 		typeOptions: { multipleValues: false },
 		description: 'Embed media message to button',
 		options: [
@@ -345,7 +342,7 @@ export const templateProperties: INodeProperties[] = [
 		required: true,
 		placeholder: 'Add Template Buttons',
 		type: 'fixedCollection',
-		default: '',
+		default: {},
 		typeOptions: { multipleValues: true },
 		options: [
 			{
@@ -398,7 +395,7 @@ export const templateProperties: INodeProperties[] = [
 		placeholder: `[Array:[{buttonType: 'replyButton', displayText: 'Button Text', payload: 'btnId01'}]]`,
 		type: 'json',
 		default: [],
-		description: 'Map a json directly to this field',
+		description: 'Map a JSON directly to this field',
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -414,7 +411,7 @@ export const templateProperties: INodeProperties[] = [
 		name: 'mediaMessageProperty',
 		placeholder: 'Add Media Message',
 		type: 'fixedCollection',
-		default: '',
+		default: {},
 		typeOptions: { multipleValues: false },
 		description: 'Embed media message to button',
 		options: [
@@ -518,7 +515,7 @@ export const mediaMessageProperties: INodeProperties[] = [
 		name: 'mediaCaptionProperty',
 		type: 'fixedCollection',
 		typeOptions: { multipleValues: false },
-		default: '',
+		default: {},
 		options: [
 			{
 				displayName: 'Caption',
@@ -620,7 +617,7 @@ export const mediaBase64MessgeProperties: INodeProperties[] = [
 		name: 'mediaCaptionProperty',
 		type: 'fixedCollection',
 		typeOptions: { multipleValues: false },
-		default: '',
+		default: {},
 		options: [
 			{
 				displayName: 'Caption',
@@ -720,7 +717,7 @@ export const locationProperties: INodeProperties[] = [
 		displayName: 'Name',
 		name: 'nameProperty',
 		default: '',
-		description: 'city name - state of ... - district',
+		description: 'City name - state of ... - district.',
 		type: 'string',
 		routing: { send: { type: 'body', property: 'locationMessage.name' } },
 		displayOptions: {
@@ -735,7 +732,7 @@ export const locationProperties: INodeProperties[] = [
 		displayName: 'Address',
 		name: 'addressProperty',
 		default: '',
-		description: 'location address - landmark - location name',
+		description: 'Location address - landmark - location name',
 		type: 'string',
 		routing: { send: { type: 'body', property: 'locationMessage.name' } },
 		displayOptions: {
@@ -749,7 +746,7 @@ export const locationProperties: INodeProperties[] = [
 	{
 		displayName: 'Add Type Buttons',
 		name: 'addTypeButtonsProperty',
-		description: 'optional',
+		description: 'Optional',
 		type: 'fixedCollection',
 		typeOptions: { multipleValues: false },
 		options: [
@@ -764,14 +761,14 @@ export const locationProperties: INodeProperties[] = [
 						placeholder: `[Array:[{displayText: 'Button Text', buttonId: 'btnId01'}]]`,
 						type: 'json',
 						default: [],
-						description: 'Map a json directly to this field',
+						description: 'Map a JSON directly to this field',
 						hint: 'Maximum of three buttons ',
 						routing: { send: { type: 'body', property: 'locationMessage.commonButtons.buttons' } },
 					},
 				],
 			},
 		],
-		default: '',
+		default: {},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -884,7 +881,7 @@ export const listProperties: INodeProperties[] = [
 		name: 'listSectionFieldsProperty',
 		placeholder: 'Add Section',
 		required: true,
-		default: '',
+		default: {},
 		type: 'fixedCollection',
 		typeOptions: { multipleValues: true },
 		options: [
@@ -904,7 +901,7 @@ export const listProperties: INodeProperties[] = [
 						name: 'rowsProperty',
 						placeholder: 'Add Row',
 						required: true,
-						default: '',
+						default: {},
 						type: 'fixedCollection',
 						typeOptions: { multipleValues: true },
 						options: [
@@ -1063,7 +1060,7 @@ export const contactProperties: INodeProperties[] = [
 		displayName: 'Contact Fields',
 		name: 'contactFieldsProperty',
 		required: true,
-		default: '',
+		default: {},
 		placeholder: '',
 		type: 'fixedCollection',
 		typeOptions: { multipleValues: true },
@@ -1081,7 +1078,7 @@ export const contactProperties: INodeProperties[] = [
 						type: 'string',
 					},
 					{
-						displayName: 'Whatsapp unuque id',
+						displayName: 'Whatsapp Unuque ID',
 						name: 'wuid',
 						placeholder: '5531900000000',
 						required: true,

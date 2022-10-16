@@ -5,7 +5,7 @@ import {
 	INodeExecutionData,
 	NodeApiError,
 } from 'n8n-workflow';
-import { proto } from './CodeChat';
+import { proto } from './Codechat';
 
 export async function sendErrorPostReceive(
 	this: IExecuteSingleFunctions,

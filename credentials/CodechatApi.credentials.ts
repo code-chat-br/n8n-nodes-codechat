@@ -1,8 +1,8 @@
-import { IAuthenticateGeneric, ICredentialType, INodeProperties } from 'n8n-workflow';
+import { ICredentialType, INodeProperties } from 'n8n-workflow';
 
-export class CodeChatCredentialsApi implements ICredentialType {
-	name = 'codeChatApi';
-	displayName = 'CodeChat Api';
+export class CodechatApi implements ICredentialType {
+	name = 'codechatApi';
+	displayName = 'CodeChat API';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Instance Name',
@@ -32,5 +32,5 @@ export class CodeChatCredentialsApi implements ICredentialType {
 			hint: 'Inform the url provided by your service provider',
 		},
 	];
-	documentationUrl = 'CodeChat';
+	documentationUrl = 'https://api.codechat.rest/codechat/docs';
 }

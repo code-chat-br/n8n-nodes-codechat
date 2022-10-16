@@ -39,7 +39,7 @@ export const createGroupPrperties: INodeProperties[] = [
 		name: 'descriptionProperty',
 		placeholder: 'Add Description',
 		type: 'fixedCollection',
-		default: '',
+		default: {},
 		options: [
 			{
 				displayName: 'Description',
@@ -67,7 +67,7 @@ export const createGroupPrperties: INodeProperties[] = [
 		name: 'profilePictureProperty',
 		placeholder: 'Add Picture',
 		type: 'fixedCollection',
-		default: '',
+		default: {},
 		options: [
 			{
 				displayName: 'Profile Picture',
@@ -120,7 +120,7 @@ export const groupInviteCodeProperties: INodeProperties[] = [
 		placeholder: '123456789-123345@g.us',
 		type: 'string',
 		default: '',
-		description: 'Retrieve the group invite you created.',
+		description: 'Retrieve the group invite you created',
 		displayOptions: {
 			show: {
 				resource: ['group'],
@@ -343,7 +343,7 @@ export const updateParticipantsPorperties: INodeProperties[] = [
 		placeholder: '123456789-123345@g.us',
 		type: 'string',
 		default: '',
-		description: 'Group Id created by the number logged in',
+		description: 'Group ID created by the number logged in',
 		displayOptions: {
 			show: {
 				resource: ['group'],
@@ -485,9 +485,9 @@ export const changeExpirationProperties: INodeProperties[] = [
 		required: true,
 		type: 'options',
 		options: [
-			{ name: 'No expiration', value: 0 },
-			{ name: 'One day', value: 1 },
-			{ name: 'One week', value: 7 },
+			{ name: 'No Expiration', value: 0 },
+			{ name: 'One Day', value: 1 },
+			{ name: 'One Week', value: 7 },
 			{ name: 'Quarterly', value: 90 },
 		],
 		default: 0,
@@ -543,7 +543,7 @@ export const fetchParticipantsProperties: INodeProperties[] = [
 	},
 
 	{
-		displayName: 'Member type',
+		displayName: 'Member Type',
 		name: 'memberTypeProperty',
 		required: true,
 		type: 'options',
@@ -551,7 +551,7 @@ export const fetchParticipantsProperties: INodeProperties[] = [
 			{ name: 'All', value: 'all' },
 			{ name: 'Common', value: 'common' },
 			{ name: 'Admin', value: 'admin' },
-			{ name: 'Super admin', value: 'superadmin' },
+			{ name: 'Super Admin', value: 'superadmin' },
 		],
 		default: 'all',
 		displayOptions: {

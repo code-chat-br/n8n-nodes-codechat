@@ -1,5 +1,5 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { codechatFields } from './CodeChat.fields';
+import { codechatFields } from './Codechat.fields';
 import { sendErrorPostReceive } from './Generic.func';
 
 export class CodeChat implements INodeType {

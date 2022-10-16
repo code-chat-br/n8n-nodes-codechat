@@ -3,12 +3,12 @@ import { formatNumber, readMessage, shippingURL } from '../Generic.func';
 
 export const onWhatsappProperties: INodeProperties[] = [
 	{
-		displayName: 'List recipient phone numbers',
+		displayName: 'List Recipient Phone Numbers',
 		name: 'listPhoneNumbers',
 		type: 'json',
 		default: [],
 		placeholder: `[Array:['5531900000000, '5521911111111']] or 5531922222222`,
-		description: 'This field supports both a list and a single number.',
+		description: 'This field supports both a list and a single number',
 		hint: 'Check if the contact is a whatsapp contact. When entering a phone number, make sure to include the country code',
 		routing: {
 			send: { type: 'body', property: 'numbers', preSend: [formatNumber] },
@@ -25,7 +25,7 @@ export const onWhatsappProperties: INodeProperties[] = [
 
 export const updatePresence: INodeProperties[] = [
 	{
-		displayName: 'Recipient phone numbers',
+		displayName: 'Recipient Phone Numbers',
 		name: 'numberProperty',
 		required: true,
 		type: 'string',
@@ -46,13 +46,28 @@ export const updatePresence: INodeProperties[] = [
 		description: 'Simulate your presence in the chat',
 		type: 'options',
 		options: [
-			{ name: 'Composing', value: 'composing' },
-			{ name: 'Unavailable', value: 'unavailable' },
-			{ name: 'Available', value: 'available' },
-			{ name: 'Recording', value: 'recording' },
-			{ name: 'Paused', value: 'paused' },
+			{
+				name: 'Available',
+				value: 'available',
+			},
+			{
+				name: 'Composing',
+				value: 'composing',
+			},
+			{
+				name: 'Paused',
+				value: 'paused',
+			},
+			{
+				name: 'Recording',
+				value: 'recording',
+			},
+			{
+				name: 'Unavailable',
+				value: 'unavailable',
+			},
 		],
-		default: 'composing ',
+		default: 'available',
 		routing: { send: { type: 'body', property: 'presence' } },
 		displayOptions: {
 			show: {
@@ -138,7 +153,7 @@ export const blockCobtactProperties: INodeProperties[] = [
 			{ name: 'Block', value: 'block' },
 			{ name: 'Unblock', value: 'unblock' },
 		],
-		default: 'block ',
+		default: 'block',
 		routing: { send: { type: 'body', property: 'action' } },
 		displayOptions: {
 			show: {
@@ -165,7 +180,7 @@ export const blockCobtactProperties: INodeProperties[] = [
 
 export const statusContactPorperties: INodeProperties[] = [
 	{
-		displayName: 'Recipient phone numbers',
+		displayName: 'Recipient Phone Numbers',
 		name: 'numberProperty',
 		required: true,
 		type: 'string',
@@ -211,7 +226,7 @@ export const budinessProfileProperties: INodeProperties[] = [
 		required: true,
 		type: 'string',
 		default: '',
-		description: `Retrieve a contact's business information`,
+		description: 'Retrieve a contact\'s business information',
 		placeholder: '5531900000000',
 		routing: {
 			send: { type: 'query', property: 'number' },
@@ -230,7 +245,7 @@ export const profilePictureProperties: INodeProperties[] = [
 	{
 		displayName: 'Pnhone Number',
 		name: 'numberProperty',
-		description: 'Retrieve profile picture url of some contact',
+		description: 'Retrieve profile picture URL of some contact',
 		required: true,
 		type: 'string',
 		default: '',
