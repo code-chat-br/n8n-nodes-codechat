@@ -396,7 +396,7 @@ export const updateParticipantsPorperties: INodeProperties[] = [
 	},
 ];
 
-export const updateSettingsGroupProperties: INodeProperties[] = [
+export const updateRuleGroupProperties: INodeProperties[] = [
 	{
 		displayName: 'Group ID',
 		name: 'groupIdProperty',
@@ -431,11 +431,11 @@ export const updateSettingsGroupProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['group'],
-				operation: ['updateSettings'],
+				operation: ['updateRule'],
 			},
 		},
 		routing: {
-			send: { type: 'body', property: 'settings' },
+			send: { type: 'body', property: 'updateRule' },
 		},
 	},
 
@@ -447,12 +447,12 @@ export const updateSettingsGroupProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['group'],
-				operation: ['updateSettings'],
+				operation: ['updateRule'],
 			},
 		},
 		routing: {
 			request: {
-				url: '=' + shippingURL('group', 'updateSettings'),
+				url: '=' + shippingURL('group', 'updateRule'),
 				method: 'PUT',
 			},
 		},
@@ -498,7 +498,7 @@ export const changeExpirationProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			send: { type: 'body', property: 'settings' },
+			send: { type: 'body', property: 'updateRule' },
 		},
 	},
 

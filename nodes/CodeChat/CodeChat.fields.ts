@@ -21,7 +21,7 @@ import {
 	updateGroupProperties,
 	updateParticipantsPorperties,
 	updatePropfilePictureProperties,
-	updateSettingsGroupProperties,
+	updateRuleGroupProperties,
 } from './descriptions/Group.desc';
 import {
 	buttonsProperties,
@@ -350,9 +350,9 @@ const groupResource: INodeProperties[] = [
 				action: 'Update profile picture a group',
 			},
 			{
-				name: 'Update Settings',
-				value: 'updateSettings',
-				action: 'Update settings a group',
+				name: 'Update Rules',
+				value: 'updateRule',
+				action: 'Update rules a group',
 			},
 		],
 		default: 'createGroup',
@@ -413,7 +413,7 @@ const groupResource: INodeProperties[] = [
 	 * │      Update Settings Properties      │
 	 * └──────────────────────────────────────┘
 	 */
-	...updateSettingsGroupProperties,
+	...updateRuleGroupProperties,
 
 	/**┌────────────────────────────────────────┐
 	 * │      Change Expiration Properties      │
