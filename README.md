@@ -51,15 +51,15 @@ This section describes which **CodeChat API** operations are available on this n
 
 All operations return a queue for tracking the shipment that can be monitored through the webhook.
 
-```json
+```ts
 {
-	"header": {
-		"queueId": "20aa6e5f-4545-4f90-b712-9a176c9509da",
-		"status": "PROCESSING",
-		"progress": 0
+	header: {
+		queueId: "20aa6e5f-4545-4f90-b712-9a176c9509da",
+		status: "PROCESSING",
+		progress: 0
 	},
-	"data": {
-		"jids": [
+	data: {
+		jids: [
 			"5531900000000@s.whatsapp.net"
 		]
 	}
