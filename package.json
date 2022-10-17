@@ -29,11 +29,11 @@
   "homepage": "",
   "author": {
     "name": "codechat",
-    "email": "api@codechat.rest"
+    "email": "suporte@codechat.rest"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/codechat/n8n-nodes-codechat.git"
+    "url": "https://github.com/code-chat-br/n8n-node-codechat"
   },
   "main": "index.js",
   "scripts": {
