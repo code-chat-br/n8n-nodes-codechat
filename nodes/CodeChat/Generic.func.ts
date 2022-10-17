@@ -5,7 +5,7 @@ import {
 	INodeExecutionData,
 	NodeApiError,
 } from 'n8n-workflow';
-import { RequestBody } from './Codechat';
+import { RequestBody } from './CodeChat';
 
 export async function sendErrorPostReceive(
 	this: IExecuteSingleFunctions,
@@ -130,7 +130,9 @@ export async function prepareShippingOptions(
 		}
 	}
 
-	Object.assign(requestOptions.body as {}, { options: opts });
+	const optsKeys = Object.keys(opts);
+
+	Object.assign(requestOptions.body as {}, { options: optsKeys.length > 0 ? opts: undefined });
 
 	return requestOptions;
 }

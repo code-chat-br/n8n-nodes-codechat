@@ -1,11 +1,11 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
-import { codechatFields } from './Codechat.fields';
+import { codechatFields } from './CodeChat.fields';
 import { sendErrorPostReceive } from './Generic.func';
 
 export class CodeChat implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'CodeChat - WhatsApp Api Cloud',
-		name: 'codechat',
+		name: 'codeChat',
 		icon: 'file:codechat.svg',
 		group: ['output'],
 		version: 1,

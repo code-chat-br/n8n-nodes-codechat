@@ -1,7 +1,7 @@
 import { ICredentialType, INodeProperties } from 'n8n-workflow';
 
-export class CodechatApi implements ICredentialType {
-	name = 'codechatApi';
+export class CodeChatCredentialsApi implements ICredentialType {
+	name = 'codeChatApi';
 	displayName = 'CodeChat API';
 	properties: INodeProperties[] = [
 		{
