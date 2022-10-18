@@ -13,7 +13,6 @@ export async function sendErrorPostReceive(
 	response: IN8nHttpFullResponse,
 ): Promise<INodeExecutionData[]> {
 	const body = response?.body as RequestBody.IError;
-	if (body?.error) {
 		if (body?.error) {
 			throw new NodeApiError(
 				this.getNode(),
@@ -26,7 +25,6 @@ export async function sendErrorPostReceive(
 				},
 			);
 		}
-	}
 	return data;
 }
 
