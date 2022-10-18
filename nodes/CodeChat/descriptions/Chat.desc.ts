@@ -1,5 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
-import { formatNumber, readMessage, shippingURL } from '../Generic.func';
+import { formatNumber, readMessage, requestURL } from '../Generic.func';
 
 export const onWhatsappProperties: INodeProperties[] = [
 	{
@@ -12,7 +12,7 @@ export const onWhatsappProperties: INodeProperties[] = [
 		hint: 'Check if the contact is a whatsapp contact. When entering a phone number, make sure to include the country code',
 		routing: {
 			send: { type: 'body', property: 'numbers', preSend: [formatNumber] },
-			request: { url: '=' + shippingURL('chat', 'onWhatsApp'), method: 'POST' },
+			request: { url: '=' + requestURL('chat', 'onWhatsApp'), method: 'POST' },
 		},
 		displayOptions: {
 			show: {
@@ -97,7 +97,7 @@ export const updatePresence: INodeProperties[] = [
 		name: 'setRouting',
 		type: 'hidden',
 		default: '',
-		routing: { request: { url: '=' + shippingURL('chat', 'updatePresence'), method: 'PUT' } },
+		routing: { request: { url: '=' + requestURL('chat', 'updatePresence'), method: 'PUT' } },
 		displayOptions: {
 			show: {
 				resource: ['chat'],
@@ -117,7 +117,7 @@ export const markMSGReadProperties: INodeProperties[] = [
 		placeholder: `[Array:[messageId:'id',wuid:'123@s.whatsapp.net',fromMe:false]]`,
 		routing: {
 			send: { type: 'body', property: 'readMessage', preSend: [readMessage] },
-			request: { url: '=' + shippingURL('chat', 'markMessageAsRead'), method: 'PUT' },
+			request: { url: '=' + requestURL('chat', 'markMessageAsRead'), method: 'PUT' },
 		},
 		displayOptions: {
 			show: {
@@ -168,7 +168,7 @@ export const blockCobtactProperties: INodeProperties[] = [
 		name: 'setRouting',
 		type: 'hidden',
 		default: '',
-		routing: { request: { url: '=' + shippingURL('chat', 'blockContact'), method: 'PUT' } },
+		routing: { request: { url: '=' + requestURL('chat', 'blockContact'), method: 'PUT' } },
 		displayOptions: {
 			show: {
 				resource: ['chat'],
@@ -187,7 +187,7 @@ export const statusContactPorperties: INodeProperties[] = [
 		default: '',
 		routing: {
 			send: { type: 'query', property: 'number' },
-			request: { url: '=' + shippingURL('chat', 'fetchStatusContact'), method: 'GET' },
+			request: { url: '=' + requestURL('chat', 'fetchStatusContact'), method: 'GET' },
 		},
 		displayOptions: {
 			show: {
@@ -208,7 +208,7 @@ export const updateStatusProperties: INodeProperties[] = [
 		default: '',
 		routing: {
 			send: { type: 'body', property: 'status' },
-			request: { url: '=' + shippingURL('chat', 'updateStaus'), method: 'PUT' },
+			request: { url: '=' + requestURL('chat', 'updateStaus'), method: 'PUT' },
 		},
 		displayOptions: {
 			show: {
@@ -230,7 +230,7 @@ export const budinessProfileProperties: INodeProperties[] = [
 		placeholder: '5531900000000',
 		routing: {
 			send: { type: 'query', property: 'number' },
-			request: { url: '=' + shippingURL('chat', 'fetchBusinessProfile'), method: 'GET' },
+			request: { url: '=' + requestURL('chat', 'fetchBusinessProfile'), method: 'GET' },
 		},
 		displayOptions: {
 			show: {
@@ -252,7 +252,7 @@ export const profilePictureProperties: INodeProperties[] = [
 		placeholder: '5531900000000',
 		routing: {
 			send: { type: 'query', property: 'number' },
-			request: { url: '=' + shippingURL('chat', 'fetchProfilePictureUrl'), method: 'GET' },
+			request: { url: '=' + requestURL('chat', 'fetchProfilePictureUrl'), method: 'GET' },
 		},
 		displayOptions: {
 			show: {

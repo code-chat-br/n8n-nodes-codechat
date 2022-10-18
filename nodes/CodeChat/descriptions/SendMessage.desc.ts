@@ -1,11 +1,11 @@
 import { INodeProperties } from 'n8n-workflow';
 import {
 	prepareShippingOptions,
+	requestURL,
 	sendButtonsMessage,
 	sendContactMessage,
 	sendListMessage,
 	sendTemplateMessage,
-	shippingURL,
 } from '../Generic.func';
 
 export const optionsProperties: INodeProperties[] = [
@@ -62,7 +62,7 @@ export const textProperties: INodeProperties[] = [
 		},
 		routing: {
 			send: { type: 'body', property: 'textMessage.text' },
-			request: { url: '=' + shippingURL('message', 'sendText'), method: 'POST' },
+			request: { url: '=' + requestURL('message', 'sendText'), method: 'POST' },
 		},
 	},
 ];
@@ -258,7 +258,7 @@ export const buttonsProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + shippingURL('message', 'sendButtons'), method: 'POST' },
+			request: { url: '=' + requestURL('message', 'sendButtons'), method: 'POST' },
 			send: { preSend: [sendButtonsMessage] },
 		},
 	},
@@ -465,7 +465,7 @@ export const templateProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + shippingURL('message', 'sendTemplate'), method: 'POST' },
+			request: { url: '=' + requestURL('message', 'sendTemplate'), method: 'POST' },
 			send: { preSend: [sendTemplateMessage] },
 		},
 	},
@@ -552,7 +552,7 @@ export const mediaMessageProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + shippingURL('message', 'sendMedia'), method: 'POST' },
+			request: { url: '=' + requestURL('message', 'sendMedia'), method: 'POST' },
 		},
 	},
 ];
@@ -654,7 +654,7 @@ export const mediaBase64MessgeProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + shippingURL('message', 'sendMediaBase64'), method: 'POST' },
+			request: { url: '=' + requestURL('message', 'sendMediaBase64'), method: 'POST' },
 		},
 	},
 ];
@@ -669,7 +669,7 @@ export const whatsAppAudioProperties: INodeProperties[] = [
 		type: 'string',
 		routing: {
 			send: { type: 'body', property: 'whatsappAudio.audio' },
-			request: { url: '=' + shippingURL('message', 'sendWhatsAppAudio'), method: 'POST' },
+			request: { url: '=' + requestURL('message', 'sendWhatsAppAudio'), method: 'POST' },
 		},
 		displayOptions: {
 			show: {
@@ -789,7 +789,7 @@ export const locationProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + shippingURL('message', 'sendLocation'), method: 'POST' },
+			request: { url: '=' + requestURL('message', 'sendLocation'), method: 'POST' },
 		},
 	},
 ];
@@ -980,7 +980,7 @@ export const listProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + shippingURL('message', 'sendList'), method: 'POST' },
+			request: { url: '=' + requestURL('message', 'sendList'), method: 'POST' },
 			send: { preSend: [sendListMessage] },
 		},
 	},
@@ -1030,7 +1030,7 @@ export const linkPreviewProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + shippingURL('message', 'sendLinkPreview'), method: 'POST' },
+			request: { url: '=' + requestURL('message', 'sendLinkPreview'), method: 'POST' },
 		},
 	},
 ];
@@ -1136,7 +1136,7 @@ export const contactProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + shippingURL('message', 'sendContact'), method: 'POST' },
+			request: { url: '=' + requestURL('message', 'sendContact'), method: 'POST' },
 			send: { preSend: [sendContactMessage] },
 		},
 	},

@@ -42,7 +42,7 @@ function join(...paths: string[]) {
 	return url;
 }
 
-export function shippingURL(...paths: string[]) {
+export function requestURL(...paths: string[]) {
 	return join('{{$credentials.instanceName}}', ...paths, '{{$credentials.licenseKey}}');
 }
 

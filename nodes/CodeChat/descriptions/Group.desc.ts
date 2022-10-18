@@ -1,5 +1,5 @@
 import { INodeProperties } from 'n8n-workflow';
-import { createGroup, shippingURL, updateGroupIngo } from '../Generic.func';
+import { createGroup, requestURL, updateGroupIngo } from '../Generic.func';
 
 export const createGroupPrperties: INodeProperties[] = [
 	{
@@ -105,7 +105,7 @@ export const createGroupPrperties: INodeProperties[] = [
 		routing: {
 			send: { preSend: [createGroup] },
 			request: {
-				url: '=' + shippingURL('group', 'create'),
+				url: '=' + requestURL('group', 'create'),
 				method: 'POST',
 			},
 		},
@@ -130,7 +130,7 @@ export const groupInviteCodeProperties: INodeProperties[] = [
 		routing: {
 			send: { type: 'query', property: 'groupJid' },
 			request: {
-				url: '=' + shippingURL('group', 'invitionCode'),
+				url: '=' + requestURL('group', 'invitionCode'),
 				method: 'GET',
 			},
 		},
@@ -155,7 +155,7 @@ export const acceptInviteCodeProperties: INodeProperties[] = [
 		routing: {
 			send: { type: 'query', property: 'groupJid' },
 			request: {
-				url: '=' + shippingURL('group', 'acceptInviteCode'),
+				url: '=' + requestURL('group', 'acceptInviteCode'),
 				method: 'GET',
 			},
 		},
@@ -180,7 +180,7 @@ export const revokeInviteCodeProperties: INodeProperties[] = [
 		routing: {
 			send: { type: 'query', property: 'groupJid' },
 			request: {
-				url: '=' + shippingURL('group', 'revokeInviteCode'),
+				url: '=' + requestURL('group', 'revokeInviteCode'),
 				method: 'GET',
 			},
 		},
@@ -249,7 +249,7 @@ export const updateGroupProperties: INodeProperties[] = [
 		routing: {
 			send: { preSend: [updateGroupIngo] },
 			request: {
-				url: '=' + shippingURL('group', 'updateInfo'),
+				url: '=' + requestURL('group', 'updateInfo'),
 				method: 'PUT',
 			},
 		},
@@ -303,7 +303,7 @@ export const updatePropfilePictureProperties: INodeProperties[] = [
 		},
 		routing: {
 			request: {
-				url: '=' + shippingURL('group', 'updateProfilePicture'),
+				url: '=' + requestURL('group', 'updateProfilePicture'),
 				method: 'PUT',
 			},
 		},
@@ -328,7 +328,7 @@ export const groupMetadataProperties: INodeProperties[] = [
 		routing: {
 			send: { type: 'query', property: 'groupJid' },
 			request: {
-				url: '=' + shippingURL('group', 'fetchInfo'),
+				url: '=' + requestURL('group', 'fetchInfo'),
 				method: 'GET',
 			},
 		},
@@ -389,7 +389,7 @@ export const updateParticipantsPorperties: INodeProperties[] = [
 		},
 		routing: {
 			request: {
-				url: '=' + shippingURL('group', 'updateParticipants'),
+				url: '=' + requestURL('group', 'updateParticipants'),
 				method: 'PUT',
 			},
 		},
@@ -452,7 +452,7 @@ export const updateRuleGroupProperties: INodeProperties[] = [
 		},
 		routing: {
 			request: {
-				url: '=' + shippingURL('group', 'updateRule'),
+				url: '=' + requestURL('group', 'updateRule'),
 				method: 'PUT',
 			},
 		},
@@ -515,7 +515,7 @@ export const changeExpirationProperties: INodeProperties[] = [
 		},
 		routing: {
 			request: {
-				url: '=' + shippingURL('group', 'changeExpiration'),
+				url: '=' + requestURL('group', 'changeExpiration'),
 				method: 'PUT',
 			},
 		},
@@ -578,7 +578,7 @@ export const fetchParticipantsProperties: INodeProperties[] = [
 		},
 		routing: {
 			request: {
-				url: '=' + shippingURL('group', 'fetchParticipants'),
+				url: '=' + requestURL('group', 'fetchParticipants'),
 				method: 'GET',
 			},
 		},
@@ -603,7 +603,7 @@ export const leaveGroupProperties: INodeProperties[] = [
 		routing: {
 			send: { type: 'query', property: 'groupJid' },
 			request: {
-				url: '=' + shippingURL('group', 'leave'),
+				url: '=' + requestURL('group', 'leave'),
 				method: 'DELETE',
 			},
 		},
