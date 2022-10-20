@@ -89,6 +89,7 @@ All operations return a queue for tracking the shipment that can be monitored th
 | Block Contact        | PUT    | True                 |                                       |
 | Business Profile     | GET    | True                 | Retrieve business contact information |
 | Mark Message As Read | PUT    | True                 |                                       |
+| Delete Message       | DELETE | True                 | Delete for me or everyone             |
 | On WhatsApp          | POST   | True                 | Check if the contact is on WhatsApp   |
 | Profile Picture Url  | GET    | True                 | Retrieve a contact's profile picture  |
 | Update Presence      | PUT    | True                 |                                       |
