@@ -14,7 +14,7 @@ export const onWhatsappProperties: INodeProperties[] = [
 			send: { type: 'body', property: 'numbers', preSend: [formatNumber] },
 			request: {
 				url: '=' + requestURL('chat', 'onWhatsApp'),
-				method: 'POST'
+				method: 'POST',
 			},
 		},
 		displayOptions: {
@@ -103,8 +103,8 @@ export const updatePresence: INodeProperties[] = [
 		routing: {
 			request: {
 				url: '=' + requestURL('chat', 'updatePresence'),
-				method: 'PUT'
-			}
+				method: 'PUT',
+			},
 		},
 		displayOptions: {
 			show: {
@@ -127,7 +127,7 @@ export const markMSGReadProperties: INodeProperties[] = [
 			send: { type: 'body', property: 'readMessage', preSend: [readMessage] },
 			request: {
 				url: '=' + requestURL('chat', 'markMessageAsRead'),
-				method: 'PUT'
+				method: 'PUT',
 			},
 		},
 		displayOptions: {
@@ -147,13 +147,13 @@ export const deleteMessageProperties: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		placeholder: 'E10D3435A07F6111089C7875814A667F',
-		routing: { send: {type:'body', property: 'messageId'} },
+		routing: { send: { type: 'body', property: 'messageId' } },
 		displayOptions: {
 			show: {
 				resource: ['chat'],
-				operation: ['deleteMessage']
-			}
-		}
+				operation: ['deleteMessage'],
+			},
+		},
 	},
 
 	{
@@ -163,13 +163,13 @@ export const deleteMessageProperties: INodeProperties[] = [
 		type: 'boolean',
 		default: true,
 		placeholder: '',
-		routing: { send: { type:'body', property:'fromMe' } },
+		routing: { send: { type: 'body', property: 'fromMe' } },
 		displayOptions: {
 			show: {
 				resource: ['chat'],
-				operation: ['deleteMessage']
-			}
-		}
+				operation: ['deleteMessage'],
+			},
+		},
 	},
 
 	{
@@ -183,9 +183,9 @@ export const deleteMessageProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['chat'],
-				operation: ['deleteMessage']
-			}
-		}
+				operation: ['deleteMessage'],
+			},
+		},
 	},
 
 	{
@@ -199,9 +199,9 @@ export const deleteMessageProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['chat'],
-				operation: ['deleteMessage']
-			}
-		}
+				operation: ['deleteMessage'],
+			},
+		},
 	},
 
 	{
@@ -212,7 +212,7 @@ export const deleteMessageProperties: INodeProperties[] = [
 		routing: {
 			request: {
 				url: '=' + requestURL('chat', 'deleteMessage'),
-				method: 'DELETE'
+				method: 'DELETE',
 			},
 		},
 		displayOptions: {
@@ -265,10 +265,10 @@ export const blockCobtactProperties: INodeProperties[] = [
 		type: 'hidden',
 		default: '',
 		routing: {
-			 request: {
+			request: {
 				url: '=' + requestURL('chat', 'blockContact'),
-				method: 'PUT'
-			}
+				method: 'PUT',
+			},
 		},
 		displayOptions: {
 			show: {
@@ -290,7 +290,7 @@ export const statusContactPorperties: INodeProperties[] = [
 			send: { type: 'query', property: 'number' },
 			request: {
 				url: '=' + requestURL('chat', 'fetchStatusContact'),
-				method: 'GET'
+				method: 'GET',
 			},
 		},
 		displayOptions: {
@@ -314,7 +314,7 @@ export const updateStatusProperties: INodeProperties[] = [
 			send: { type: 'body', property: 'status' },
 			request: {
 				url: '=' + requestURL('chat', 'updateStaus'),
-				method: 'PUT'
+				method: 'PUT',
 			},
 		},
 		displayOptions: {
@@ -333,13 +333,13 @@ export const budinessProfileProperties: INodeProperties[] = [
 		required: true,
 		type: 'string',
 		default: '',
-		description: 'Retrieve a contact\'s business information',
+		description: "Retrieve a contact's business information",
 		placeholder: '5531900000000',
 		routing: {
 			send: { type: 'query', property: 'number' },
 			request: {
 				url: '=' + requestURL('chat', 'fetchBusinessProfile'),
-				method: 'GET'
+				method: 'GET',
 			},
 		},
 		displayOptions: {
@@ -364,7 +364,7 @@ export const profilePictureProperties: INodeProperties[] = [
 			send: { type: 'query', property: 'number' },
 			request: {
 				url: '=' + requestURL('chat', 'fetchProfilePictureUrl'),
-				method: 'GET'
+				method: 'GET',
 			},
 		},
 		displayOptions: {

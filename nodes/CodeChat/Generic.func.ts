@@ -13,18 +13,18 @@ export async function sendErrorPostReceive(
 	response: IN8nHttpFullResponse,
 ): Promise<INodeExecutionData[]> {
 	const body = response?.body as RequestBody.IError;
-		if (body?.error) {
-			throw new NodeApiError(
-				this.getNode(),
-				{ error: body.error, message: body.message },
-				{
-					message: 'Check the type of properties and values entered',
-					description:
-						'Check that there are no undefined values; whether the type of values is as expected or whether mandatory properties have been entered.',
-					httpCode: body.statusCode.toString(),
-				},
-			);
-		}
+	if (body?.error) {
+		throw new NodeApiError(
+			this.getNode(),
+			{ error: body.error, message: body.message },
+			{
+				message: 'Check the type of properties and values entered',
+				description:
+					'Check that there are no undefined values; whether the type of values is as expected or whether mandatory properties have been entered.',
+				httpCode: body.statusCode.toString(),
+			},
+		);
+	}
 	return data;
 }
 
@@ -130,7 +130,7 @@ export async function prepareShippingOptions(
 
 	const optsKeys = Object.keys(opts);
 
-	Object.assign(requestOptions.body as {}, { options: optsKeys.length > 0 ? opts: undefined });
+	Object.assign(requestOptions.body as {}, { options: optsKeys.length > 0 ? opts : undefined });
 
 	return requestOptions;
 }
