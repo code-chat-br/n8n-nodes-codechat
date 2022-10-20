@@ -16,8 +16,14 @@ export const optionsProperties: INodeProperties[] = [
 		hint: 'Enter the ID of the message you want to quote',
 		placeholder: 'messageId',
 		type: 'string',
-		displayOptions: { show: { resource: ['sendMessage'] } },
-		routing: { send: { type: 'body', property: 'options.quoted' } },
+		displayOptions: {
+			show: {
+				resource: ['sendMessage']
+			}
+		},
+		routing: {
+			send: { type: 'body', property: 'options.quoted' }
+		},
 	},
 
 	{
@@ -29,7 +35,9 @@ export const optionsProperties: INodeProperties[] = [
 		placeholder: `[Array:['5531900000000, '5521911111111']]`,
 		type: 'json',
 		displayOptions: { show: { resource: ['sendMessage'] } },
-		routing: { send: { type: 'body', property: 'options.mentioned' } },
+		routing: {
+			send: { type: 'body', property: 'options.mentioned' }
+		},
 	},
 
 	{
@@ -41,7 +49,11 @@ export const optionsProperties: INodeProperties[] = [
 		type: 'number',
 		displayOptions: { show: { resource: ['sendMessage'] } },
 		routing: {
-			send: { type: 'body', property: 'options.delay', preSend: [prepareShippingOptions] },
+			send: {
+				type: 'body',
+				property: 'options.delay',
+				preSend: [prepareShippingOptions]
+			},
 		},
 	},
 ];
@@ -62,7 +74,10 @@ export const textProperties: INodeProperties[] = [
 		},
 		routing: {
 			send: { type: 'body', property: 'textMessage.text' },
-			request: { url: '=' + requestURL('message', 'sendText'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('message', 'sendText'),
+				method: 'POST'
+			},
 		},
 	},
 ];
@@ -178,7 +193,9 @@ export const buttonsProperties: INodeProperties[] = [
 				buttonFieldTypeProperty: ['collection'],
 			},
 		},
-		routing: { send: { type: 'body', property: 'buttons' } },
+		routing: {
+			send: { type: 'body', property: 'buttons' }
+		},
 	},
 
 	{
@@ -196,7 +213,9 @@ export const buttonsProperties: INodeProperties[] = [
 				buttonFieldTypeProperty: ['json'],
 			},
 		},
-		routing: { send: { type: 'body', property: 'buttonsMessage.buttons' } },
+		routing: {
+			send: { type: 'body', property: 'buttonsMessage.buttons' }
+		},
 	},
 
 	{
@@ -224,7 +243,9 @@ export const buttonsProperties: INodeProperties[] = [
 							{ name: 'Sticker', value: 'sticker' },
 						],
 						default: 'image',
-						routing: { send: { type: 'body', property: 'mediaData.type' } },
+						routing: {
+							send: { type: 'body', property: 'mediaData.type' }
+						},
 					},
 					{
 						displayName: 'Media Source',
@@ -233,7 +254,9 @@ export const buttonsProperties: INodeProperties[] = [
 						type: 'string',
 						default: '',
 						placeholder: 'url or base64',
-						routing: { send: { type: 'body', property: 'mediaData.source' } },
+						routing: {
+							send: { type: 'body', property: 'mediaData.source' }
+						},
 					},
 				],
 			},
@@ -258,7 +281,10 @@ export const buttonsProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + requestURL('message', 'sendButtons'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('message', 'sendButtons'),
+				method: 'POST'
+			},
 			send: { preSend: [sendButtonsMessage] },
 		},
 	},
@@ -385,7 +411,9 @@ export const templateProperties: INodeProperties[] = [
 				templateFieldTypeProperty: ['collection'],
 			},
 		},
-		routing: { send: { type: 'body', property: 'buttons' } },
+		routing: {
+			send: { type: 'body', property: 'buttons' }
+		},
 	},
 
 	{
@@ -403,7 +431,9 @@ export const templateProperties: INodeProperties[] = [
 				templateFieldTypeProperty: ['json'],
 			},
 		},
-		routing: { send: { type: 'body', property: 'templateMessage.buttons' } },
+		routing: {
+			send: { type: 'body', property: 'templateMessage.buttons' }
+		},
 	},
 
 	{
@@ -431,7 +461,9 @@ export const templateProperties: INodeProperties[] = [
 							{ name: 'Sticker', value: 'sticker' },
 						],
 						default: 'image',
-						routing: { send: { type: 'body', property: 'mediaData.type' } },
+						routing: {
+							send: { type: 'body', property: 'mediaData.type' }
+						},
 					},
 					{
 						displayName: 'Media Source',
@@ -440,7 +472,9 @@ export const templateProperties: INodeProperties[] = [
 						type: 'string',
 						default: '',
 						placeholder: 'url or base64',
-						routing: { send: { type: 'body', property: 'mediaData.source' } },
+						routing: {
+							send: { type: 'body', property: 'mediaData.source' }
+						},
 					},
 				],
 			},
@@ -465,7 +499,10 @@ export const templateProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + requestURL('message', 'sendTemplate'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('message', 'sendTemplate'),
+				method: 'POST'
+			},
 			send: { preSend: [sendTemplateMessage] },
 		},
 	},
@@ -485,7 +522,9 @@ export const mediaMessageProperties: INodeProperties[] = [
 			{ name: 'Sticker', value: 'sticker' },
 		],
 		default: 'image',
-		routing: { send: { type: 'body', property: 'mediaMessage.mediaType' } },
+		routing: {
+			send: { type: 'body', property: 'mediaMessage.mediaType' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -501,7 +540,9 @@ export const mediaMessageProperties: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		placeholder: 'https://yourdomain.com/image.png',
-		routing: { send: { type: 'body', property: 'mediaMessage.url' } },
+		routing: {
+			send: { type: 'body', property: 'mediaMessage.url' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -527,7 +568,9 @@ export const mediaMessageProperties: INodeProperties[] = [
 						type: 'string',
 						default: '',
 						placeholder: 'caption - description - title',
-						routing: { send: { type: 'body', property: 'mediaMessage.caption' } },
+						routing: {
+							send: { type: 'body', property: 'mediaMessage.caption' }
+						},
 					},
 				],
 			},
@@ -552,7 +595,10 @@ export const mediaMessageProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + requestURL('message', 'sendMedia'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('message', 'sendMedia'),
+				method: 'POST'
+			},
 		},
 	},
 ];
@@ -566,7 +612,9 @@ export const mediaBase64MessgeProperties: INodeProperties[] = [
 		hint: 'Para que o tipo de arquivo seja identificado pelo WhatsApp, a extensão deve ser informada pelo WhatsApp.',
 		type: 'string',
 		default: '',
-		routing: { send: { type: 'body', property: 'mediaMessage.fileName' } },
+		routing: {
+			send: { type: 'body', property: 'mediaMessage.fileName' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -588,7 +636,9 @@ export const mediaBase64MessgeProperties: INodeProperties[] = [
 			{ name: 'Sticker', value: 'sticker' },
 		],
 		default: 'image',
-		routing: { send: { type: 'body', property: 'mediaMessage.mediaType' } },
+		routing: {
+			send: { type: 'body', property: 'mediaMessage.mediaType' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -603,7 +653,9 @@ export const mediaBase64MessgeProperties: INodeProperties[] = [
 		required: true,
 		type: 'string',
 		default: '',
-		routing: { send: { type: 'body', property: 'mediaMessage.base64' } },
+		routing: {
+			send: { type: 'body', property: 'mediaMessage.base64' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -629,7 +681,9 @@ export const mediaBase64MessgeProperties: INodeProperties[] = [
 						type: 'string',
 						default: '',
 						placeholder: 'caption - description - title',
-						routing: { send: { type: 'body', property: 'mediaMessage.caption' } },
+						routing: {
+							send: { type: 'body', property: 'mediaMessage.caption' }
+						},
 					},
 				],
 			},
@@ -654,7 +708,10 @@ export const mediaBase64MessgeProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + requestURL('message', 'sendMediaBase64'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('message', 'sendMediaBase64'),
+				method: 'POST'
+			},
 		},
 	},
 ];
@@ -669,7 +726,10 @@ export const whatsAppAudioProperties: INodeProperties[] = [
 		type: 'string',
 		routing: {
 			send: { type: 'body', property: 'whatsappAudio.audio' },
-			request: { url: '=' + requestURL('message', 'sendWhatsAppAudio'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('message', 'sendWhatsAppAudio'),
+				method: 'POST'
+			},
 		},
 		displayOptions: {
 			show: {
@@ -688,7 +748,9 @@ export const locationProperties: INodeProperties[] = [
 		default: '',
 		type: 'number',
 		placeholder: '-20.32568196333534',
-		routing: { send: { type: 'body', property: 'locationMessage.latitude' } },
+		routing: {
+			send: { type: 'body', property: 'locationMessage.latitude' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -704,7 +766,9 @@ export const locationProperties: INodeProperties[] = [
 		default: '',
 		type: 'number',
 		placeholder: '-20.32568196333534',
-		routing: { send: { type: 'body', property: 'locationMessage.longitude' } },
+		routing: {
+			send: { type: 'body', property: 'locationMessage.longitude' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -719,7 +783,9 @@ export const locationProperties: INodeProperties[] = [
 		default: '',
 		description: 'City name - state of ... - district.',
 		type: 'string',
-		routing: { send: { type: 'body', property: 'locationMessage.name' } },
+		routing: {
+			send: { type: 'body', property: 'locationMessage.name' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -734,7 +800,9 @@ export const locationProperties: INodeProperties[] = [
 		default: '',
 		description: 'Location address - landmark - location name',
 		type: 'string',
-		routing: { send: { type: 'body', property: 'locationMessage.name' } },
+		routing: {
+			send: { type: 'body', property: 'locationMessage.name' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -763,7 +831,9 @@ export const locationProperties: INodeProperties[] = [
 						default: [],
 						description: 'Map a JSON directly to this field',
 						hint: 'Maximum of three buttons ',
-						routing: { send: { type: 'body', property: 'locationMessage.commonButtons.buttons' } },
+						routing: {
+							send: { type: 'body', property: 'locationMessage.commonButtons.buttons' }
+						},
 					},
 				],
 			},
@@ -789,7 +859,10 @@ export const locationProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + requestURL('message', 'sendLocation'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('message', 'sendLocation'),
+				method: 'POST'
+			},
 		},
 	},
 ];
@@ -801,7 +874,9 @@ export const listProperties: INodeProperties[] = [
 		required: true,
 		default: '',
 		type: 'string',
-		routing: { send: { type: 'body', property: 'listMessage.title' } },
+		routing: {
+			send: { type: 'body', property: 'listMessage.title' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -816,7 +891,9 @@ export const listProperties: INodeProperties[] = [
 		required: true,
 		default: '',
 		type: 'string',
-		routing: { send: { type: 'body', property: 'listMessage.description' } },
+		routing: {
+			send: { type: 'body', property: 'listMessage.description' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -832,7 +909,9 @@ export const listProperties: INodeProperties[] = [
 		default: '',
 		description: 'List clickable button title',
 		type: 'string',
-		routing: { send: { type: 'body', property: 'listMessage.buttonText' } },
+		routing: {
+			send: { type: 'body', property: 'listMessage.buttonText' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -847,7 +926,9 @@ export const listProperties: INodeProperties[] = [
 		default: '',
 		description: 'Optional',
 		type: 'string',
-		routing: { send: { type: 'body', property: 'listMessage.footerText' } },
+		routing: {
+			send: { type: 'body', property: 'listMessage.footerText' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -958,7 +1039,9 @@ export const listProperties: INodeProperties[] = [
 		placeholder: `[Array:[title:'Section Title',rows:[{title:'Row Title',description:'Description',rowId:'rowId01'}]]]`,
 		type: 'json',
 		default: [],
-		routing: { send: { type: 'body', property: 'listMessage.sections' } },
+		routing: {
+			send: { type: 'body', property: 'listMessage.sections' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -980,7 +1063,10 @@ export const listProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + requestURL('message', 'sendList'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('message', 'sendList'),
+				method: 'POST'
+			},
 			send: { preSend: [sendListMessage] },
 		},
 	},
@@ -994,7 +1080,9 @@ export const linkPreviewProperties: INodeProperties[] = [
 		placeholder: 'https://github.com/jrCleber',
 		type: 'string',
 		default: '',
-		routing: { send: { type: 'body', property: 'linkPreview.url' } },
+		routing: {
+			send: { type: 'body', property: 'linkPreview.url' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -1009,7 +1097,9 @@ export const linkPreviewProperties: INodeProperties[] = [
 		required: true,
 		type: 'string',
 		default: '',
-		routing: { send: { type: 'body', property: 'linkPreview.text' } },
+		routing: {
+			send: { type: 'body', property: 'linkPreview.text' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -1030,7 +1120,10 @@ export const linkPreviewProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + requestURL('message', 'sendLinkPreview'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('message', 'sendLinkPreview'),
+				method: 'POST'
+			},
 		},
 	},
 ];
@@ -1096,7 +1189,9 @@ export const contactProperties: INodeProperties[] = [
 				],
 			},
 		],
-		routing: { send: { type: 'body', property: 'contactMessage' } },
+		routing: {
+			send: { type: 'body', property: 'contactMessage' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -1114,7 +1209,9 @@ export const contactProperties: INodeProperties[] = [
 		placeholder: `[Array:[fullName:'Contact name',wuid:'5531900000000',phoneNumber]]`,
 		type: 'json',
 		default: [],
-		routing: { send: { type: 'body', property: 'contactMessage' } },
+		routing: {
+			send: { type: 'body', property: 'contactMessage' }
+		},
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],
@@ -1136,7 +1233,10 @@ export const contactProperties: INodeProperties[] = [
 			},
 		},
 		routing: {
-			request: { url: '=' + requestURL('message', 'sendContact'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('message', 'sendContact'),
+				method: 'POST'
+			},
 			send: { preSend: [sendContactMessage] },
 		},
 	},
