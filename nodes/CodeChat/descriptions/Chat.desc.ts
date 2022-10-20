@@ -12,7 +12,10 @@ export const onWhatsappProperties: INodeProperties[] = [
 		hint: 'Check if the contact is a whatsapp contact. When entering a phone number, make sure to include the country code',
 		routing: {
 			send: { type: 'body', property: 'numbers', preSend: [formatNumber] },
-			request: { url: '=' + requestURL('chat', 'onWhatsApp'), method: 'POST' },
+			request: {
+				url: '=' + requestURL('chat', 'onWhatsApp'),
+				method: 'POST'
+			},
 		},
 		displayOptions: {
 			show: {
@@ -97,7 +100,12 @@ export const updatePresence: INodeProperties[] = [
 		name: 'setRouting',
 		type: 'hidden',
 		default: '',
-		routing: { request: { url: '=' + requestURL('chat', 'updatePresence'), method: 'PUT' } },
+		routing: {
+			request: {
+				url: '=' + requestURL('chat', 'updatePresence'),
+				method: 'PUT'
+			}
+		},
 		displayOptions: {
 			show: {
 				resource: ['chat'],
@@ -117,12 +125,100 @@ export const markMSGReadProperties: INodeProperties[] = [
 		placeholder: `[Array:[messageId:'id',wuid:'123@s.whatsapp.net',fromMe:false]]`,
 		routing: {
 			send: { type: 'body', property: 'readMessage', preSend: [readMessage] },
-			request: { url: '=' + requestURL('chat', 'markMessageAsRead'), method: 'PUT' },
+			request: {
+				url: '=' + requestURL('chat', 'markMessageAsRead'),
+				method: 'PUT'
+			},
 		},
 		displayOptions: {
 			show: {
 				resource: ['chat'],
 				operation: ['markMessageAsRead'],
+			},
+		},
+	},
+];
+
+export const deleteMessageProperties: INodeProperties[] = [
+	{
+		displayName: 'Message ID',
+		name: 'messgeIdProperty',
+		required: true,
+		type: 'string',
+		default: '',
+		placeholder: 'E10D3435A07F6111089C7875814A667F',
+		routing: { send: {type:'body', property: 'messageId'} },
+		displayOptions: {
+			show: {
+				resource: ['chat'],
+				operation: ['deleteMessage']
+			}
+		}
+	},
+
+	{
+		displayName: 'De',
+		name: 'fromMeProperty',
+		required: true,
+		type: 'boolean',
+		default: true,
+		placeholder: '',
+		routing: { send: { type:'body', property:'fromMe' } },
+		displayOptions: {
+			show: {
+				resource: ['chat'],
+				operation: ['deleteMessage']
+			}
+		}
+	},
+
+	{
+		displayName: 'Wuid',
+		name: 'wuidProperty',
+		required: true,
+		type: 'string',
+		default: '',
+		placeholder: '5531900000000@s.whatsapp.net',
+		routing: { send: { type: 'body', property: 'wuid' } },
+		displayOptions: {
+			show: {
+				resource: ['chat'],
+				operation: ['deleteMessage']
+			}
+		}
+	},
+
+	{
+		displayName: 'Participant',
+		name: 'participantProperty',
+		type: 'string',
+		default: '',
+		placeholder: '5531900000000@s.whatsapp.net',
+		description: 'Pass this property if it is a group message',
+		routing: { send: { type: 'body', property: 'participant' } },
+		displayOptions: {
+			show: {
+				resource: ['chat'],
+				operation: ['deleteMessage']
+			}
+		}
+	},
+
+	{
+		displayName: 'Set Routing',
+		name: 'setRouting',
+		type: 'hidden',
+		default: '',
+		routing: {
+			request: {
+				url: '=' + requestURL('chat', 'deleteMessage'),
+				method: 'DELETE'
+			},
+		},
+		displayOptions: {
+			show: {
+				resource: ['chat'],
+				operation: ['deleteMessage'],
 			},
 		},
 	},
@@ -168,7 +264,12 @@ export const blockCobtactProperties: INodeProperties[] = [
 		name: 'setRouting',
 		type: 'hidden',
 		default: '',
-		routing: { request: { url: '=' + requestURL('chat', 'blockContact'), method: 'PUT' } },
+		routing: {
+			 request: {
+				url: '=' + requestURL('chat', 'blockContact'),
+				method: 'PUT'
+			}
+		},
 		displayOptions: {
 			show: {
 				resource: ['chat'],
@@ -187,7 +288,10 @@ export const statusContactPorperties: INodeProperties[] = [
 		default: '',
 		routing: {
 			send: { type: 'query', property: 'number' },
-			request: { url: '=' + requestURL('chat', 'fetchStatusContact'), method: 'GET' },
+			request: {
+				url: '=' + requestURL('chat', 'fetchStatusContact'),
+				method: 'GET'
+			},
 		},
 		displayOptions: {
 			show: {
@@ -208,7 +312,10 @@ export const updateStatusProperties: INodeProperties[] = [
 		default: '',
 		routing: {
 			send: { type: 'body', property: 'status' },
-			request: { url: '=' + requestURL('chat', 'updateStaus'), method: 'PUT' },
+			request: {
+				url: '=' + requestURL('chat', 'updateStaus'),
+				method: 'PUT'
+			},
 		},
 		displayOptions: {
 			show: {
@@ -230,7 +337,10 @@ export const budinessProfileProperties: INodeProperties[] = [
 		placeholder: '5531900000000',
 		routing: {
 			send: { type: 'query', property: 'number' },
-			request: { url: '=' + requestURL('chat', 'fetchBusinessProfile'), method: 'GET' },
+			request: {
+				url: '=' + requestURL('chat', 'fetchBusinessProfile'),
+				method: 'GET'
+			},
 		},
 		displayOptions: {
 			show: {
@@ -252,7 +362,10 @@ export const profilePictureProperties: INodeProperties[] = [
 		placeholder: '5531900000000',
 		routing: {
 			send: { type: 'query', property: 'number' },
-			request: { url: '=' + requestURL('chat', 'fetchProfilePictureUrl'), method: 'GET' },
+			request: {
+				url: '=' + requestURL('chat', 'fetchProfilePictureUrl'),
+				method: 'GET'
+			},
 		},
 		displayOptions: {
 			show: {

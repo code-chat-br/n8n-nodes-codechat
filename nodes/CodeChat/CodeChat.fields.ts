@@ -2,6 +2,7 @@ import { INodeProperties } from 'n8n-workflow';
 import {
 	blockCobtactProperties,
 	budinessProfileProperties,
+	deleteMessageProperties,
 	markMSGReadProperties,
 	onWhatsappProperties,
 	profilePictureProperties,
@@ -207,6 +208,11 @@ const chatResource: INodeProperties[] = [
 				action: 'Contact status a chat',
 			},
 			{
+				name: 'Delete Message',
+				value: 'deleteMessage',
+				action: 'Delete message a chat',
+			},
+			{
 				name: 'Mark Message As Read',
 				value: 'markMessageAsRead',
 				action: 'Mark message as read a chat',
@@ -254,6 +260,12 @@ const chatResource: INodeProperties[] = [
 	 * └───────────────────────────────────┘
 	 */
 	...markMSGReadProperties,
+
+	/**┌────────────────────────────────────┐
+	 * │      Delete Messge Properties      │
+	 * └────────────────────────────────────┘
+	 */
+	...deleteMessageProperties,
 
 	/**┌────────────────────────────────────┐
 	 * │      Block Contact Properties      │
