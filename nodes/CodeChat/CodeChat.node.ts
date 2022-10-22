@@ -18,8 +18,8 @@ export class CodeChat implements INodeType {
 		requestDefaults: {
 			baseURL: '={{$credentials.baseUrl}}',
 			headers: {
-				apiKey: '={{$credentials.apiKey}}'
-			}
+				apiKey: '={{$credentials.apiKey}}',
+			},
 		},
 		properties: [
 			{

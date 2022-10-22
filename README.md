@@ -28,7 +28,7 @@ Node configuration is quite simple, just specify the credentials and use the ava
 
 # Credentials
 
-All operations require a credential which is composed of the **License**, **Instance Name** and the call **Base Url**. Which will be made available at the time of contracting the service.
+All operations require a credential which is composed of the **Api Key**, **Instance Name** and the call **Base Url**. Which will be made available at the time of contracting the service.
 ![Credentials Codechat](./assets/codechat_credentials.png)
 
 # Resources

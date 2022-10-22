@@ -1,4 +1,4 @@
-name: n8n-nodes-codechat
+name: Node.js Package
 
 on:
   release:
