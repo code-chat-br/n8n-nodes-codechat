@@ -1066,6 +1066,7 @@ export const listProperties: INodeProperties[] = [
 			request: {
 				url: '=' + requestURL('message', 'sendList'),
 				method: 'POST',
+				h
 			},
 			send: { preSend: [sendListMessage] },
 		},

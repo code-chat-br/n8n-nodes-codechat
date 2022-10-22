@@ -15,7 +15,12 @@ export class CodeChat implements INodeType {
 		credentials: [{ name: 'codeChatApi', required: true }],
 		inputs: ['main'],
 		outputs: ['main'],
-		requestDefaults: { baseURL: '={{$credentials.baseUrl}}' },
+		requestDefaults: {
+			baseURL: '={{$credentials.baseUrl}}',
+			headers: {
+				apiKey: '={{$credentials.apiKey}}'
+			}
+		},
 		properties: [
 			{
 				displayName: 'Resource',

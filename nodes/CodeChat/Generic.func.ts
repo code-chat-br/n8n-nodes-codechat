@@ -41,7 +41,7 @@ function join(...paths: string[]) {
 }
 
 export function requestURL(...paths: string[]) {
-	return join('{{$credentials.instanceName}}', ...paths, '{{$credentials.licenseKey}}');
+	return join('{{$credentials.instanceName}}', ...paths);
 }
 
 export async function formatNumber(

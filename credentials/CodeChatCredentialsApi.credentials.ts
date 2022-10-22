@@ -14,8 +14,8 @@ export class CodeChatCredentialsApi implements ICredentialType {
 		},
 
 		{
-			displayName: 'License Key',
-			name: 'licenseKey',
+			displayName: 'Authorization (apiKey)',
+			name: 'apiKey',
 			type: 'string',
 			default: '',
 			required: true,
@@ -32,5 +32,5 @@ export class CodeChatCredentialsApi implements ICredentialType {
 			hint: 'Inform the url provided by your service provider',
 		},
 	];
-	documentationUrl = 'https://api.codechat.rest/codechat/docs';
+	documentationUrl = 'https://api.codechat.dev/docs';
 }
