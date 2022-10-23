@@ -32,5 +32,5 @@ export class CodeChatCredentialsApi implements ICredentialType {
 			hint: 'Inform the url provided by your service provider',
 		},
 	];
-	documentationUrl = 'https://api.codechat.dev/docs';
+	documentationUrl = 'https://docs.codechat.dev/';
 }
