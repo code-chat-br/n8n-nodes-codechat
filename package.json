@@ -35,8 +35,7 @@
     "type": "git",
     "url": "https://github.com/code-chat-br/n8n-node-codechat"
   },
-  "main": "index.js",
-  "scripts": {
+  "main": "index.js",  "scripts": {
     "build": "rm -rf ./dist && tsc && gulp build:icons",
     "dev": "tsc --watch",
     "format": "prettier nodes credentials --write",
