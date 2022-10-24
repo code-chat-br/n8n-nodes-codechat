@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-codechat",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Rest api for communication with WhatsApp",
   "keywords": [
     "n8n",
@@ -71,8 +71,5 @@
     "prettier": "^2.7.1",
     "tslint": "^6.1.2",
     "typescript": "~4.6.0"
-  },
-  "publishConfig": {
-    "@jrcleber:registry": "https://npm.pkg.github.com"
   }
 }
