@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-codechat",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Rest api for communication with WhatsApp",
   "keywords": [
     "n8n",
@@ -26,7 +26,7 @@
     "bot"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/code-chat-br",
   "author": {
     "name": "codechat",
     "email": "suporte@codechat.rest"
@@ -35,7 +35,8 @@
     "type": "git",
     "url": "https://github.com/code-chat-br/n8n-node-codechat"
   },
-  "main": "index.js",  "scripts": {
+  "main": "index.js",
+  "scripts": {
     "build": "rm -rf ./dist && tsc && gulp build:icons",
     "dev": "tsc --watch",
     "format": "prettier nodes credentials --write",
@@ -72,6 +73,6 @@
     "typescript": "~4.6.0"
   },
   "publishConfig": {
-    "@jrclber:registry": "https://npm.pkg.github.com"
+    "@jrcleber:registry": "https://npm.pkg.github.com"
   }
 }
