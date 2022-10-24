@@ -1,5 +1,8 @@
 [![Telegram](https://img.shields.io/badge/Group-Telegram-%2333C1FF)](https://t.me/codechatBR)
 [![Whatsapp](https://img.shields.io/badge/WhatsApp-message-%2322BC18)](https://api.whatsapp.com/send?phone=5531995918699)
+![n8n-node-codechat](https://img.shields.io/github/package-json/v/code-chat-br/n8n-nodes-codechat?label=n8n-node-codechat&logo=codechat)
+![License](https://img.shields.io/github/license/code-chat-br/n8n-nodes-codechat)
+[![n8n](https://img.shields.io/badge/n8n-community-F94B72)](https://community.n8n.io/)
 
 ![Banner image](./assets/cover.png)
 
@@ -77,23 +80,23 @@ All operations return a queue for tracking the shipment that can be monitored th
 | Group Metadata         | GET    | True                 | Retrieve all information about the group and its participants |
 | Invite Code            | GET    | True                 | Generates the created group invitation                        |
 | Revoke Invite          | PUT    | True                 |                                                               |
-| Update Info            | PUT    | True                 |                                                               |
+| Update Info            | PUT    | True                 | Update the group's subject or description                     |
 | Update Participants    | PUT    | True                 |                                                               |
 | Update Profile Picture | PUT    | True                 |                                                               |
 | Update Settings        | PUT    | True                 | Update group chat and group handling rules                    |
 
 # Resource Chat
 
-| Operation            | Method | Credentials required | Description                           |
-|----------------------|--------|----------------------|---------------------------------------|
-| Block Contact        | PUT    | True                 |                                       |
-| Business Profile     | GET    | True                 | Retrieve business contact information |
-| Mark Message As Read | PUT    | True                 |                                       |
-| Delete Message       | DELETE | True                 | Delete for me or everyone             |
-| On WhatsApp          | POST   | True                 | Check if the contact is on WhatsApp   |
-| Profile Picture Url  | GET    | True                 | Retrieve a contact's profile picture  |
-| Update Presence      | PUT    | True                 |                                       |
-| Update Status        | PUT    | True                 |                                       |
+| Operation            | Method | Credentials required | Description                               |
+|----------------------|--------|----------------------|-------------------------------------------|
+| Block Contact        | PUT    | True                 |                                           |
+| Business Profile     | GET    | True                 | Retrieve business contact information     |
+| Mark Message As Read | PUT    | True                 |                                           |
+| Delete Message       | DELETE | True                 | Delete for me or everyone                 |
+| On WhatsApp          | POST   | True                 | Check if the contact is on WhatsApp       |
+| Profile Picture Url  | GET    | True                 | Retrieve a contact's profile picture      |
+| Update Presence      | PUT    | True                 | compising - recording - available - pause |
+| Update Status        | PUT    | True                 |                                           |
 
 # Compatibility
 
