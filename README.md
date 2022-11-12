@@ -1,10 +1,16 @@
+<div align="center">
+
 [![Telegram](https://img.shields.io/badge/Group-Telegram-%2333C1FF)](https://t.me/codechatBR)
 [![Whatsapp](https://img.shields.io/badge/WhatsApp-message-%2322BC18)](https://api.whatsapp.com/send?phone=5531995918699)
 ![n8n-node-codechat](https://img.shields.io/github/package-json/v/code-chat-br/n8n-nodes-codechat?label=n8n-node-codechat&logo=codechat)
 ![License](https://img.shields.io/github/license/code-chat-br/n8n-nodes-codechat)
 [![n8n](https://img.shields.io/badge/n8n-community-F94B72)](https://community.n8n.io/)
+![npm](https://img.shields.io/npm/dt/n8n-nodes-codechat)
+![npm](https://img.shields.io/npm/dw/n8n-nodes-codechat?label=%20)
 
-![Banner image](./assets/cover.png)
+</div>
+
+<div align="center"><img src="./assets/cover.png"></div>
 
 # n8n-nodes-codechat
 
