@@ -14,16 +14,19 @@ export async function sendErrorPostReceive(
 ): Promise<INodeExecutionData[]> {
 	const body = response?.body as RequestBody.IError;
 	if (body?.error) {
-		throw new NodeApiError(
-			this.getNode(),
-			{ error: body.error, message: body.message },
-			{
-				message: 'Check the type of properties and values entered',
-				description:
-					'Check that there are no undefined values; whether the type of values is as expected or whether mandatory properties have been entered.',
-				httpCode: body.statusCode.toString(),
-			},
-		);
+		const node = this.getNode();
+	  const creds = await this.getCredentials('codeChatApi');
+		Object.assign(node.credentials as {}, { creds })
+
+		throw {
+			httpCode: body.statusCode,
+			context: body.error,
+			cause: { error:body.error, message:body.message },
+			node: this.getNode(),
+			workflow: this.getWorkflow(),
+			message: `${body.error} - statusCode ${body.statusCode}`,
+			description: 'Check the type of properties and values entered',
+		}
 	}
 	return data;
 }

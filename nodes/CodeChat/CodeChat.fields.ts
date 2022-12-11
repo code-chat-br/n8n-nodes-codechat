@@ -118,7 +118,6 @@ const messageResource: INodeProperties[] = [
 			},
 		],
 		default: 'sendText',
-		routing: { request: { ignoreHttpStatusErrors: true } },
 		displayOptions: { show: { resource: ['sendMessage'] } },
 	},
 

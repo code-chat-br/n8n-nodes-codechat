@@ -20,6 +20,7 @@ export class CodeChat implements INodeType {
 			headers: {
 				apiKey: '={{$credentials.apiKey}}',
 			},
+			ignoreHttpStatusErrors: true,
 		},
 		properties: [
 			{
