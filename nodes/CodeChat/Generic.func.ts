@@ -15,8 +15,8 @@ export async function sendErrorPostReceive(
 	const body = response?.body as RequestBody.IError;
 	if (body?.error) {
 		const node = this.getNode();
-	  const creds = await this.getCredentials('codeChatApi');
-		Object.assign(node.credentials as {}, { creds })
+		const creds = await this.getCredentials('codeChatApi');
+		Object.assign(node.credentials as {}, { creds });
 
 		throw {
 			httpCode: body.statusCode,
@@ -26,7 +26,7 @@ export async function sendErrorPostReceive(
 			workflow: this.getWorkflow(),
 			message: `${body.error} - statusCode ${body.statusCode}`,
 			description: 'Check the type of properties and values entered',
-		}
+		};
 	}
 	return data;
 }
