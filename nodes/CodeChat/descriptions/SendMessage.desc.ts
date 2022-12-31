@@ -10,51 +10,84 @@ import {
 
 export const optionsProperties: INodeProperties[] = [
 	{
-		displayName: 'Quote Message',
-		name: 'quoted',
-		default: '',
-		hint: 'Enter the ID of the message you want to quote',
-		placeholder: 'messageId',
-		type: 'string',
+		displayName: 'Message Options',
+		name: 'messageOptionsProperty',
+		type: 'fixedCollection',
+		default: {},
+		typeOptions: { multipleValues: false },
+		options: [
+			{
+				displayName: 'Options',
+				name: 'optionsProperty',
+				values: [
+					{
+						displayName: 'Quote Message',
+						name: 'quotedProperty',
+						default: '',
+						hint: 'Enter the ID of the message you want to quote',
+						placeholder: 'messageId',
+						type: 'string',
+						routing: {
+							send: { type: 'body', property: 'options.quoted' },
+						},
+					},
+
+					{
+						displayName: 'Mention Contacts',
+						name: 'mentionsProperty',
+						placeholder: '',
+						type: 'options',
+						options: [
+							{ name: 'Everyone', value: 'everyone' },
+							{ name: 'One by One', value: 'onebyone' }
+						],
+						default: 'onebyone',
+						description: 'With "everyone" mention everyone in a group',
+						routing: {
+							send: { type: 'body', property: 'options.mentions.everyone' },
+						},
+					},
+
+					{
+						displayName: 'Mention Contact',
+						name: 'mentionedProperty',
+						default: '',
+						hint: 'Insert a list with the contact(s) of the user(s) to be mentioned.',
+						description: 'Mentions in both group chats and simple chats',
+						placeholder: `[Array:['5531900000000, '5521911111111']]`,
+						type: 'json',
+						routing: {
+							send: { type: 'body', property: 'options.mentions.mentioned' },
+						},
+						displayOptions: {
+							show: {
+								mentionsProperty: ['onebyone']
+							}
+						},
+					},
+
+					{
+						displayName: 'Delay Message',
+						name: 'delayMessageProperty',
+						default: '',
+						description: 'Enter the delay with which each message will be delivered',
+						placeholder: '1200 milliseconds',
+						type: 'number',
+						routing: {
+							send: {	type: 'body',	property: 'options.delay' },
+						},
+					},
+				]
+			}
+		],
 		displayOptions: {
 			show: {
-				resource: ['sendMessage'],
-			},
+				resource: ['sendMessage']
+			}
 		},
 		routing: {
-			send: { type: 'body', property: 'options.quoted' },
-		},
-	},
-
-	{
-		displayName: 'Mention Contact',
-		name: 'mentioned',
-		default: '',
-		hint: 'Insert a list with the contact(s) of the user(s) to be mentioned.',
-		description: 'Mentions in both group chats and simple chats',
-		placeholder: `[Array:['5531900000000, '5521911111111']]`,
-		type: 'json',
-		displayOptions: { show: { resource: ['sendMessage'] } },
-		routing: {
-			send: { type: 'body', property: 'options.mentioned' },
-		},
-	},
-
-	{
-		displayName: 'Delay Message',
-		name: 'delayMessage',
-		default: '',
-		description: 'Enter the delay with which each message will be delivered',
-		placeholder: '1200 milliseconds',
-		type: 'number',
-		displayOptions: { show: { resource: ['sendMessage'] } },
-		routing: {
-			send: {
-				type: 'body',
-				property: 'options.delay',
-				preSend: [prepareShippingOptions],
-			},
-		},
+			send: { preSend: [prepareShippingOptions] }
+		}
 	},
 ];
 
@@ -1074,6 +1107,26 @@ export const listProperties: INodeProperties[] = [
 
 export const linkPreviewProperties: INodeProperties[] = [
 	{
+		displayName: 'Everyone',
+		name: 'modeLinkPreviewProperty',
+		type: 'options',
+		options: [
+			{ name: 'Common', value: 'common' },
+			{ name: 'Template', value: 'template' },
+		],
+		default: 'common',
+		routing: {
+			send: { type: 'query', property: 'mode' },
+		},
+		displayOptions: {
+			show: {
+				resource: ['sendMessage'],
+				operation: ['sendLinkPreview'],
+			},
+		},
+	},
+
+	{
 		displayName: 'Url',
 		name: 'urlLinkPreviewProperty',
 		required: true,
@@ -1094,12 +1147,62 @@ export const linkPreviewProperties: INodeProperties[] = [
 	{
 		displayName: 'Text',
 		name: 'textLinkPreviewProperty',
-		required: true,
+		description: 'Required for "template" mode',
 		type: 'string',
 		default: '',
 		routing: {
 			send: { type: 'body', property: 'linkPreview.text' },
 		},
+		displayOptions: {
+			show: {
+				resource: ['sendMessage'],
+				operation: ['sendLinkPreview'],
+			},
+		},
+	},
+
+	{
+		displayName: 'Options',
+		name: 'optionsLinkPreviewProperty',
+		type: 'fixedCollection',
+		typeOptions: { multipleValues:false },
+		default: {},
+		options: [
+			{
+				displayName: 'Link Preview Options',
+				name: 'optionsProperty',
+				values: [
+					{
+						displayName: 'Title',
+						name: 'titleLinkPreviewProperty',
+						type: 'string',
+						default: '',
+						routing: {
+							send: { type:'body', property: 'linkPreview.title' }
+						}
+					},
+					{
+						displayName: 'Description',
+						name: 'descriptionLinkPreviewProperty',
+						type: 'string',
+						default: '',
+						routing: {
+							send: { type:'body', property: 'linkPreview.description' }
+						}
+					},
+					{
+						displayName: 'Image',
+						name: 'imageLinkPreviewProperty',
+						type: 'string',
+						default: '',
+						description: 'URL or base64',
+						routing: {
+							send: { type:'body', property: 'linkPreview.image' }
+						}
+					},
+				]
+			},
+		],
 		displayOptions: {
 			show: {
 				resource: ['sendMessage'],

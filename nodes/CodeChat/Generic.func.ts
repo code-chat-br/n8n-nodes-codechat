@@ -131,6 +131,10 @@ export async function prepareShippingOptions(
 ): Promise<IHttpRequestOptions> {
 	const body = requestOptions.body as RequestBody.IOptions;
 
+	if(body?.options?.mentions?.everyone === 'everyone') {
+		body.options.mentions.everyone = body.options.mentions.everyone === 'everyone';
+	}
+
 	const opts: { [key: string]: {} | number | string[] } = {};
 	if (body?.options) {
 		for (const [key, value] of Object.entries(body.options)) {
@@ -139,7 +143,7 @@ export async function prepareShippingOptions(
 					opts[key] = { messageId: value as string };
 					continue;
 				}
-				opts[key] = value as number | string[];
+				opts[key] = value;
 			}
 		}
 	}
