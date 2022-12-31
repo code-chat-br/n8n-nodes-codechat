@@ -51,7 +51,11 @@ export async function formatNumber(
 	this: IExecuteSingleFunctions,
 	requestOptions: IHttpRequestOptions,
 ): Promise<IHttpRequestOptions> {
-	const body = requestOptions.body as RequestBody.INumbers;
+	const body = requestOptions.body as RequestBody.INumbers & RequestBody.IError;
+
+	const node = this.getNode();
+	const creds = await this.getCredentials('codeChatApi');
+	Object.assign(node.credentials as {}, creds);
 
 	const numbers: string[] = [];
 
@@ -61,13 +65,20 @@ export async function formatNumber(
 			typeof body.numbers !== 'string' ||
 			!(body.numbers as string).match(/\d+/g)
 		) {
-			throw new NodeApiError(
-				this.getNode(),
-				{
-					error: ['listPhoneNumbers cannot be empty', 'listPhoneNumbers must be a numeric string'],
+			throw {
+				httpCode: '400',
+				context: 'Bad Request',
+				cause: {
+					error: [
+						'listPhoneNumbers cannot be empty',
+						'listPhoneNumbers must be a numeric string',
+					],
+					message: 'Check the type of properties and values entered'
 				},
-				{ message: 'Bad Request', description: 'Check the parameters', httpCode: '400' },
-			);
+				node,
+				workflow: this.getWorkflow(),
+				message: `${'Bad Request'} - statusCode 400`
+			};
 		}
 		numbers.push(body.numbers);
 	}
@@ -75,33 +86,35 @@ export async function formatNumber(
 	if (Array.isArray(body.numbers)) {
 		const values: string[] = body.numbers;
 		if (values.length === 0 || [...new Set(values)].length !== values.length) {
-			throw new NodeApiError(
-				this.getNode(),
-				{
+			throw {
+				httpCode: '400',
+				context: 'Bad Request',
+				cause: {
 					error: [
 						'listPhoneNumbers must not be an empty list',
 						'listPhoneNumbers must have unique values',
 					],
+					message: 'Check the type of properties and values entered'
 				},
-				{
-					message: 'Bad Request',
-					description: 'Check the type of properties and values entered',
-					httpCode: '400',
-				},
-			);
+				node,
+				workflow: this.getWorkflow(),
+				message: `${'Bad Request'} - statusCode 400`
+			};
 		}
 
 		values.map((v, index) => {
 			if (!v.match(/\d+/g)) {
-				throw new NodeApiError(
-					this.getNode(),
-					{ error: `listPhoneNumbers[${index}] must be a numeric string` },
-					{
-						message: 'Bad Request',
-						description: 'Check the type of properties and values entered',
-						httpCode: '400',
+				throw {
+					httpCode: '400',
+					context: 'Bad Request',
+					cause: {
+						error: `listPhoneNumbers[${index}] must be a numeric string`,
+						message: 'Check the type of properties and values entered'
 					},
-				);
+					node,
+					workflow: this.getWorkflow(),
+					message: `${'Bad Request'} - statusCode 400`
+				};
 			}
 
 			numbers.push(v);
