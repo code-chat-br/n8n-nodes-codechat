@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-codechat",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Rest api for communication with WhatsApp",
   "keywords": [
     "n8n",
