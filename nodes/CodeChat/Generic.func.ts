@@ -73,11 +73,11 @@ export async function formatNumber(
 						'listPhoneNumbers cannot be empty',
 						'listPhoneNumbers must be a numeric string',
 					],
-					message: 'Check the type of properties and values entered'
+					message: 'Check the type of properties and values entered',
 				},
 				node,
 				workflow: this.getWorkflow(),
-				message: `${'Bad Request'} - statusCode 400`
+				message: `${'Bad Request'} - statusCode 400`,
 			};
 		}
 		numbers.push(body.numbers);
@@ -94,11 +94,11 @@ export async function formatNumber(
 						'listPhoneNumbers must not be an empty list',
 						'listPhoneNumbers must have unique values',
 					],
-					message: 'Check the type of properties and values entered'
+					message: 'Check the type of properties and values entered',
 				},
 				node,
 				workflow: this.getWorkflow(),
-				message: `${'Bad Request'} - statusCode 400`
+				message: `${'Bad Request'} - statusCode 400`,
 			};
 		}
 
@@ -109,11 +109,11 @@ export async function formatNumber(
 					context: 'Bad Request',
 					cause: {
 						error: `listPhoneNumbers[${index}] must be a numeric string`,
-						message: 'Check the type of properties and values entered'
+						message: 'Check the type of properties and values entered',
 					},
 					node,
 					workflow: this.getWorkflow(),
-					message: `${'Bad Request'} - statusCode 400`
+					message: `${'Bad Request'} - statusCode 400`,
 				};
 			}
 

@@ -39,7 +39,7 @@ export const optionsProperties: INodeProperties[] = [
 						type: 'options',
 						options: [
 							{ name: 'Everyone', value: 'everyone' },
-							{ name: 'One by One', value: 'onebyone' }
+							{ name: 'One by One', value: 'onebyone' },
 						],
 						default: 'onebyone',
 						description: 'With "everyone" mention everyone in a group',
@@ -61,8 +61,8 @@ export const optionsProperties: INodeProperties[] = [
 						},
 						displayOptions: {
 							show: {
-								mentionsProperty: ['onebyone']
-							}
+								mentionsProperty: ['onebyone'],
+							},
 						},
 					},
 
@@ -77,17 +77,17 @@ export const optionsProperties: INodeProperties[] = [
 							send: {	type: 'body',	property: 'options.delay' },
 						},
 					},
-				]
-			}
+				],
+			},
 		],
 		displayOptions: {
 			show: {
-				resource: ['sendMessage']
-			}
+				resource: ['sendMessage'],
+			},
 		},
 		routing: {
-			send: { preSend: [prepareShippingOptions] }
-		}
+			send: { preSend: [prepareShippingOptions] },
+		},
 	},
 ];
 
@@ -1178,8 +1178,8 @@ export const linkPreviewProperties: INodeProperties[] = [
 						type: 'string',
 						default: '',
 						routing: {
-							send: { type:'body', property: 'linkPreview.title' }
-						}
+							send: { type:'body', property: 'linkPreview.title' },
+						},
 					},
 					{
 						displayName: 'Description',
@@ -1187,8 +1187,8 @@ export const linkPreviewProperties: INodeProperties[] = [
 						type: 'string',
 						default: '',
 						routing: {
-							send: { type:'body', property: 'linkPreview.description' }
-						}
+							send: { type:'body', property: 'linkPreview.description' },
+						},
 					},
 					{
 						displayName: 'Image',
@@ -1197,10 +1197,10 @@ export const linkPreviewProperties: INodeProperties[] = [
 						default: '',
 						description: 'URL or base64',
 						routing: {
-							send: { type:'body', property: 'linkPreview.image' }
-						}
+							send: { type:'body', property: 'linkPreview.image' },
+						},
 					},
-				]
+				],
 			},
 		],
 		displayOptions: {
