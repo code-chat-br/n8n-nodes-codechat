@@ -13,7 +13,10 @@ export namespace RequestBody {
 	export type IOptions = {
 		options: {
 			messageId: string;
-			mentioned: object;
+			mentions: {
+				everyone: boolean | string,
+				mentioned: string[],
+			};
 			delay: number;
 		};
 	};
