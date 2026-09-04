@@ -1,113 +1,73 @@
-<div align="center">
-
-[![Telegram](https://img.shields.io/badge/Group-Telegram-%2333C1FF)](https://t.me/codechatBR)
-[![Whatsapp](https://img.shields.io/badge/WhatsApp-message-%2322BC18)](https://api.whatsapp.com/send?phone=5531995918699)
-![n8n-node-codechat](https://img.shields.io/github/package-json/v/code-chat-br/n8n-nodes-codechat?label=n8n-node-codechat&logo=codechat)
-![License](https://img.shields.io/github/license/code-chat-br/n8n-nodes-codechat)
-[![n8n](https://img.shields.io/badge/n8n-community-F94B72)](https://community.n8n.io/)
-![npm](https://img.shields.io/npm/dt/n8n-nodes-codechat)
-![npm](https://img.shields.io/npm/dw/n8n-nodes-codechat?label=%20)
-
-</div>
-
-<div align="center"><img src="./assets/cover.png"></div>
-
 # n8n-nodes-codechat
 
-This is a [N8n](https://community.n8n.io/) community node. It allows you to use CodeChat Api to communicate with WhatsApp in your workflow.
+This is an n8n community node. It lets you use GitHub Issues in your n8n workflows.
 
-You can use most features provided by CodeChat. Like sending messages, creating and manipulating groups and managing chats.
+[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/sustainable-use-license/) workflow automation platform.
 
-# Instalation
+[Installation](#installation)
+[Operations](#operations)
+[Credentials](#credentials)
+[Compatibility](#compatibility)
+[Usage](#usage)
+[Resources](#resources)
 
-1. Go to **Settings** > **Community Nodes**, and Click Install a community node.
-![Community nodes](./assets/settings_community_nodes.png)
+## Installation
 
-2. Enter `n8n-nodes-codechat` in the **npm Package Name** field. And click **Install**.
-![Package Name](./assets/settings_community_nodes_codechat.png)
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
-Once installed, you can use the search bar to add the CodeChat node to your workflow.
-![codechat_search_bar](./assets/codechat_search_bar.png)
+## Operations
 
-![Resource Send Message](./assets/resource_send_message.png)
+- Issues
+    - Get an issue
+    - Get many issues in a repository
+    - Create a new issue
+- Issue Comments
+    - Get many issue comments
 
-# Usage
+## Credentials
 
-Node configuration is quite simple, just specify the credentials and use the available resources and operations.
+You can use either access token or OAuth2 to use this node.
 
-# Credentials
+### Access token
 
-All operations require a credential which is composed of the **Api Key**, **Instance Name** and the call **Base Url**. Which will be made available at the time of contracting the service.
-![Credentials Codechat](./assets/codechat_credentials.png)
+1. Open your GitHub profile [Settings](https://github.com/settings/profile).
+2. In the left navigation, select [Developer settings](https://github.com/settings/apps).
+3. In the left navigation, under Personal access tokens, select Tokens (classic).
+4. Select Generate new token > Generate new token (classic).
+5. Enter a descriptive name for your token in the Note field, like n8n integration.
+6. Select the Expiration you'd like for the token, or select No expiration.
+7. Select Scopes for your token. For most of the n8n GitHub nodes, add the `repo` scope.
+    - A token without assigned scopes can only access public information.
+8. Select Generate token.
+9. Copy the token.
 
-# Resources
+Refer to [Creating a personal access token (classic)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) for more information. Refer to Scopes for OAuth apps for more information on GitHub scopes.
 
-This section describes which **CodeChat API** operations are available on this node.
+![Generated Access token in GitHub](https://docs.github.com/assets/cb-17251/mw-1440/images/help/settings/personal-access-tokens.webp)
 
-## Resource Send Message
+### OAuth2
 
-| Operation           | Method | Credentials required |
-| --------------------|--------|----------------------|
-| Send Text           | POST   | True                 |
-| Send Buttons        | POST   | True                 |
-| Send Template       | POST   | True                 |
-| Send Media          | POST   | True                 |
-| Send Media Base64   | POST   | True                 |
-| send Link Preview   | POST   | True                 |
-| Send Contact        | POST   | True                 |
-| Send List           | POST   | True                 |
-| Send WhatsApp Audio | POST   | True                 |
+If you're self-hosting n8n, create a new GitHub [OAuth app](https://docs.github.com/en/apps/oauth-apps):
 
-All operations return a queue for tracking the shipment that can be monitored through the webhook.
+1. Open your GitHub profile [Settings](https://github.com/settings/profile).
+2. In the left navigation, select [Developer settings](https://github.com/settings/apps).
+3. In the left navigation, select OAuth apps.
+4. Select New OAuth App.
+    - If you haven't created an app before, you may see Register a new application instead. Select it.
+5. Enter an Application name, like n8n integration.
+6. Enter the Homepage URL for your app's website.
+7. If you'd like, add the optional Application description, which GitHub displays to end-users.
+8. From n8n, copy the OAuth Redirect URL and paste it into the GitHub Authorization callback URL.
+9. Select Register application.
+10. Copy the Client ID and Client Secret this generates and add them to your n8n credential.
 
-```json
-{
-  "header": {
-    "queueId": "20aa6e5f-4545-4f90-b712-9a176c9509da",
-    "status": "PROCESSING",
-    "progress": 0
-  },
-  "data": {
-    "jids": [
-      "5531900000000@s.whatsapp.net"
-    ]
-  }
-}
-```
+Refer to the [GitHub Authorizing OAuth apps documentation](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/authorizing-oauth-apps) for more information on the authorization process.
 
-## Resource Group
+## Compatibility
 
-| Operation              | Method | Credentials required | Description                                                   |
-| -----------------------|--------|----------------------|---------------------------------------------------------------|
-| Accept Invite          | PUT    | True                 | Accept incoming group invite                                  |
-| Change Expiration      | PUT    | True                 | Sets the expiration of group messages                         |
-| Create Group           | POST   | True                 |                                                               |
-| Fetch Participants     | GET    | True                 |                                                               |
-| Group Metadata         | GET    | True                 | Retrieve all information about the group and its participants |
-| Invite Code            | GET    | True                 | Generates the created group invitation                        |
-| Revoke Invite          | PUT    | True                 |                                                               |
-| Update Info            | PUT    | True                 | Update the group's subject or description                     |
-| Update Participants    | PUT    | True                 |                                                               |
-| Update Profile Picture | PUT    | True                 |                                                               |
-| Update Settings        | PUT    | True                 | Update group chat and group handling rules                    |
+Compatible with n8n@1.60.0 or later
 
-# Resource Chat
+## Resources
 
-| Operation            | Method | Credentials required | Description                               |
-|----------------------|--------|----------------------|-------------------------------------------|
-| Block Contact        | PUT    | True                 |                                           |
-| Business Profile     | GET    | True                 | Retrieve business contact information     |
-| Mark Message As Read | PUT    | True                 |                                           |
-| Delete Message       | DELETE | True                 | Delete for me or everyone                 |
-| On WhatsApp          | POST   | True                 | Check if the contact is on WhatsApp       |
-| Profile Picture Url  | GET    | True                 | Retrieve a contact's profile picture      |
-| Update Presence      | PUT    | True                 | compising - recording - available - pause |
-| Update Status        | PUT    | True                 |                                           |
-
-# Compatibility
-
-Tested on n8n version 0.198.2 and CodeChat version 2.0.0
-
-## License
-
-[MIT](https://github.com/code-chat-br/n8n-node-codechat/blob/main/LICENSE.md)
+* [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
+* [GitHub API docs](https://docs.github.com/en/rest/issues)

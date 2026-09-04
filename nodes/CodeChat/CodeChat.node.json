@@ -1,17 +1,17 @@
 {
-	"node": "n8n-nodes-base.codechat",
+	"node": "n8n-nodes-codechat",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
-	"categories": ["Communication","Development"],
+	"categories": ["Development", "Developer Tools"],
 	"resources": {
 		"credentialDocumentation": [
 			{
-				"url": "https://docs.codechat.dev/"
+				"url": "https://docs.codechat.dev/docs/authentication"
 			}
 		],
 		"primaryDocumentation": [
 			{
-				"url": "https://docs.codechat.dev/"
+				"url": "https://docs.codechat.dev"
 			}
 		]
 	}
