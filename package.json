@@ -29,7 +29,8 @@
 		"prepublishOnly": "n8n-node prerelease"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"!dist/tsconfig.tsbuildinfo"
 	],
 	"n8n": {
 		"n8nNodesApiVersion": 1,
@@ -42,10 +43,10 @@
 		]
 	},
 	"devDependencies": {
-		"@n8n/node-cli": "*",
+		"@n8n/node-cli": "^0.46.4",
 		"eslint": "9.39.4",
 		"prettier": "3.8.3",
-		"release-it": "20.2.0",
+		"release-it": "^21.0.2",
 		"typescript": "5.9.3"
 	},
 	"peerDependencies": {
