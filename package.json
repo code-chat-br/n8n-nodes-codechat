@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-codechat",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "n8n community nodes for interacting with the CodeChat WhatsApp API",
 	"license": "MIT",
 	"homepage": "https://docs.codechat.dev",
