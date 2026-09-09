@@ -2,7 +2,7 @@
 
 Node comunitário do n8n para usar a API do CodeChat WhatsApp em workflows.
 
-Com este pacote você pode conectar instâncias do WhatsApp, enviar mensagens, gerenciar chats, fazer upload e download de mídias, trabalhar com grupos, configurar webhooks e controlar chamadas simples diretamente no n8n.
+Com este pacote você pode conectar instâncias do WhatsApp, enviar mensagens, gerenciar chats, fazer upload e download de mídias, trabalhar com grupos, configurar webhooks, controlar chamadas simples e iniciar workflows por eventos WebSocket da CodeChat diretamente no n8n.
 
 ## Conteúdo
 
@@ -43,7 +43,14 @@ Crie uma credencial do tipo **CodeChat API** no n8n com os campos abaixo:
 - **Instance Name**: instância padrão que será usada pelo node.
 - **Instance Token**: token de autenticação da instância.
 
-As operações usam a instância configurada na credencial.
+As operações e os triggers por instância usam a instância configurada nessa credencial.
+
+Para eventos globais, crie uma credencial do tipo **CodeChat User API**:
+
+- **Base URL**: URL da sua API CodeChat.
+- **User Token**: JWT de usuário usado pelo endpoint global de eventos.
+
+Use **CodeChat API** para eventos e ações de uma instância. Use **CodeChat User API** somente para o **CodeChat Global Trigger**.
 
 ## Recursos e Operações
 
@@ -115,6 +122,138 @@ As operações usam a instância configurada na credencial.
 - Ativar ou desativar webhook
 - Configurar eventos inscritos
 
+## Triggers WebSocket
+
+Os triggers usam exclusivamente WebSocket e não criam webhooks. A URL WebSocket é derivada automaticamente da **Base URL** da credencial:
+
+- `https://api.example.com` vira `wss://api.example.com`
+- `http://localhost:8084` vira `ws://localhost:8084`
+
+A CodeChat assina exatamente um evento por conexão WebSocket. Por isso, cada trigger tem um único campo **Event** do tipo seleção simples.
+
+### CodeChat Trigger
+
+Inicia o workflow quando um evento normal da instância ocorre em `/ws/instance/events`.
+
+Credencial usada: **CodeChat API** com JWT de instância.
+
+Eventos disponíveis:
+
+- Chat Deleted
+- Chat Updated
+- Connection Updated
+- Contact Created or Updated
+- Contact Updated
+- Group Created or Updated
+- Group Participants Updated
+- Group Updated
+- History Synced
+- Identity Updated
+- Instance Status Updated
+- Label Association Changed
+- Label Edited
+- Media Retry
+- Message Deleted
+- Message Received
+- Message Starred
+- Message Undecryptable
+- Message Updated
+- Newsletter Event
+- Presence Updated
+- Profile Picture Updated
+- QR Code Updated
+- Send Message Result
+- Settings Updated
+- User About Updated
+
+### CodeChat Calls Trigger
+
+Inicia o workflow quando um evento JSON de chamada ocorre em `/ws/instance/events`.
+
+Credencial usada: **CodeChat API** com JWT de instância.
+
+Esse trigger não usa o WebSocket binário de mídia de chamadas.
+
+Eventos disponíveis:
+
+- Answered Elsewhere
+- Call Active
+- Call Connecting
+- Call Ended
+- Call Ended Unconfirmed
+- Call Ending
+- Call Ready
+- Call Ringing
+- Call Upsert
+- Hangup Requested
+- Incoming Call
+- Outgoing Call
+- Recording Completed
+- Recording Deleted
+- Recording Expired
+- Recording Failed
+- Recording Partial
+- Recording Started
+- Recording Unavailable
+- Rejected Elsewhere
+- Terminate Confirmed
+- Terminate Failed
+- Terminate Retry
+- Terminate Sent
+- Video Playback Completed
+- Video Playback Failed
+- Video Playback Started
+- Video Playback Stopped
+
+### CodeChat Global Trigger
+
+Inicia o workflow quando um evento global ocorre em `/ws/global/events`.
+
+Credencial usada: **CodeChat User API** com JWT de usuário.
+
+Eventos disponíveis:
+
+- Batch Completed
+- Batch Completed With Errors
+- Batch Created
+- Batch Interrupted
+- Batch Item Failed
+- Batch Item Unknown
+- Batch Paused
+- Batch Pause Requested
+- Batch Progress
+- Batch Recovered
+- Batch Resumed
+- Batch Scheduled
+- Batch Started
+- Batch Stop Requested
+- Batch Stopped
+- Batch Waiting Instance
+- Batch Waiting Window
+- Batch Window Started
+
+### Entrega dos eventos
+
+Cada mensagem recebida dispara uma execução do workflow com o payload original da CodeChat preservado. Assim você pode usar expressões como:
+
+```text
+{{$json.event}}
+{{$json.instance}}
+{{$json.instanceId}}
+{{$json.data}}
+{{$json.timestamp}}
+```
+
+Para eventos de chamadas:
+
+```text
+{{$json.call.id}}
+{{$json.call.status}}
+{{$json.call.peer}}
+```
+
+Quando a conexão cai de forma transitória, o trigger tenta reconectar com exponential backoff e jitter, limitado a aproximadamente 30 segundos. Fechamentos permanentes como token expirado ou escopo inválido encerram o trigger com erro em vez de criar loop infinito.
+
 ## Como usar
 
 1. Adicione o node **CodeChat** em um workflow do n8n.
@@ -124,6 +263,8 @@ As operações usam a instância configurada na credencial.
 5. Preencha os campos obrigatórios e execute o node.
 
 Para operações com arquivos, como upload de mídia ou envio de áudio em chamada, passe dados binários de um node anterior do n8n e informe o nome correto do campo binário.
+
+Para testar um trigger no editor do n8n, adicione **CodeChat Trigger**, **CodeChat Calls Trigger** ou **CodeChat Global Trigger**, selecione a credencial correta, escolha um evento e clique em **Listen for test event**. O n8n abre uma conexão temporária e executa o workflow quando o próximo evento selecionado chegar.
 
 ## Desenvolvimento
 

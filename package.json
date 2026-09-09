@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-codechat",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "n8n community nodes for interacting with the CodeChat WhatsApp API",
 	"license": "MIT",
 	"homepage": "https://docs.codechat.dev",
@@ -17,7 +17,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/code-chat-br/n8n-nodes-codechat"
+		"url": "git+https://github.com/code-chat-br/n8n-nodes-codechat.git"
 	},
 	"scripts": {
 		"build": "n8n-node build",
@@ -25,6 +25,7 @@
 		"dev": "n8n-node dev",
 		"lint": "n8n-node lint",
 		"lint:fix": "n8n-node lint --fix",
+		"test": "npm run build && node --test tests/*.test.cjs",
 		"release": "n8n-node release",
 		"prepublishOnly": "n8n-node prerelease"
 	},
@@ -36,10 +37,14 @@
 		"n8nNodesApiVersion": 1,
 		"strict": true,
 		"credentials": [
-			"dist/credentials/CodeChatApi.credentials.js"
+			"dist/credentials/CodeChatApi.credentials.js",
+			"dist/credentials/CodeChatUserApi.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/CodeChat/CodeChat.node.js"
+			"dist/nodes/CodeChat/CodeChat.node.js",
+			"dist/nodes/CodeChatTrigger/CodeChatTrigger.node.js",
+			"dist/nodes/CodeChatCallsTrigger/CodeChatCallsTrigger.node.js",
+			"dist/nodes/CodeChatGlobalTrigger/CodeChatGlobalTrigger.node.js"
 		]
 	},
 	"devDependencies": {
